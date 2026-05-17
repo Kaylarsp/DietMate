@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::get('/profile', function () {
     return view('user.profile');
 });
+
+Route::get('/menu', function () {
+    return view('user.menu');
+});
