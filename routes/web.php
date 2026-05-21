@@ -17,3 +17,7 @@ Route::get('/profile', function () {
 Route::get('/menu', function () {
     return view('user.menu');
 });
+
+Route::get('/olahraga', function () {
+    return view('user.olahraga');
+}); 
