@@ -6,9 +6,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminMenuController;
 use App\Http\Controllers\AdminDietPlanController;
 use App\Http\Controllers\AdminWorkoutController;
-use App\Http\Controllers\Api\FoodMenuController as FoodMenuApiController;
-use App\Http\Controllers\Api\DietPlanController as DietPlanApiController;
-use App\Http\Controllers\Api\WorkoutController as WorkoutApiController;
+use App\Http\Controllers\AdminUserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -78,23 +76,7 @@ Route::get('/admin/kelola-diet-plan', [AdminDietPlanController::class, 'index'])
 // Admin Kelola Olahraga
 Route::get('/admin/kelola-olahraga', [AdminWorkoutController::class, 'index'])->name('admin.exercise');
 
-// API routes for admin
-Route::prefix('api/admin')->group(function () {
-    Route::get('/food-menus', [FoodMenuApiController::class, 'index']);
-    Route::post('/food-menus', [FoodMenuApiController::class, 'store']);
-    Route::get('/food-menus/{id}', [FoodMenuApiController::class, 'show']);
-    Route::put('/food-menus/{id}', [FoodMenuApiController::class, 'update']);
-    Route::delete('/food-menus/{id}', [FoodMenuApiController::class, 'destroy']);
+// Admin Kelola User
+Route::get('/admin/kelola-akun-user', [AdminUserController::class, 'index'])->name('admin.users.account');
+Route::get('/admin/kelola-profile-user', [AdminUserController::class, 'profile'])->name('admin.users.profile');
 
-    Route::get('/diet-plans', [DietPlanApiController::class, 'index']);
-    Route::post('/diet-plans', [DietPlanApiController::class, 'store']);
-    Route::get('/diet-plans/{id}', [DietPlanApiController::class, 'show']);
-    Route::put('/diet-plans/{id}', [DietPlanApiController::class, 'update']);
-    Route::delete('/diet-plans/{id}', [DietPlanApiController::class, 'destroy']);
-
-    Route::get('/workouts', [WorkoutApiController::class, 'index']);
-    Route::post('/workouts', [WorkoutApiController::class, 'store']);
-    Route::get('/workouts/{id}', [WorkoutApiController::class, 'show']);
-    Route::put('/workouts/{id}', [WorkoutApiController::class, 'update']);
-    Route::delete('/workouts/{id}', [WorkoutApiController::class, 'destroy']);
-});

@@ -42,39 +42,39 @@ class FoodMenuController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'        => 'required|string|max:255',
-            'category'    => 'required|string|in:sarapan,siang,malam,snack',
-            'calories'    => 'required|integer|min:0',
-            'protein_g'   => 'nullable|integer|min:0',
-            'carbs_g'     => 'nullable|integer|min:0',
-            'fat_g'       => 'nullable|integer|min:0',
+            'name' => 'required|string|max:255',
+            'category' => 'required|string|in:sarapan,siang,malam,snack',
+            'calories' => 'required|integer|min:0',
+            'protein_g' => 'nullable|integer|min:0',
+            'carbs_g' => 'nullable|integer|min:0',
+            'fat_g' => 'nullable|integer|min:0',
             'description' => 'nullable|string',
-            'image_url'   => 'nullable|string|max:255',
+            'image_url' => 'nullable|string|max:255',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'errors'  => $validator->errors(),
+                'errors' => $validator->errors(),
             ], 422);
         }
 
         $menu = FoodMenu::create([
-            'name'        => $request->name,
-            'category'    => $request->category,
-            'calories'    => $request->calories,
-            'protein_g'   => $request->protein_g ?? 0,
-            'carbs_g'     => $request->carbs_g ?? 0,
-            'fat_g'       => $request->fat_g ?? 0,
+            'name' => $request->name,
+            'category' => $request->category,
+            'calories' => $request->calories,
+            'protein_g' => $request->protein_g ?? 0,
+            'carbs_g' => $request->carbs_g ?? 0,
+            'fat_g' => $request->fat_g ?? 0,
             'description' => $request->description ?? '',
-            'image_url'   => $request->image_url ?? '',
-            'is_active'   => true,
+            'image_url' => $request->image_url ?? '',
+            'is_active' => true,
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Menu berhasil ditambahkan.',
-            'data'    => $menu,
+            'data' => $menu,
         ], 201);
     }
 
@@ -85,7 +85,7 @@ class FoodMenuController extends Controller
     {
         $menu = FoodMenu::find($id);
 
-        if (!$menu) {
+        if (! $menu) {
             return response()->json([
                 'success' => false,
                 'message' => 'Menu tidak ditemukan.',
@@ -94,7 +94,7 @@ class FoodMenuController extends Controller
 
         return response()->json([
             'success' => true,
-            'data'    => $menu,
+            'data' => $menu,
         ]);
     }
 
@@ -105,7 +105,7 @@ class FoodMenuController extends Controller
     {
         $menu = FoodMenu::find($id);
 
-        if (!$menu) {
+        if (! $menu) {
             return response()->json([
                 'success' => false,
                 'message' => 'Menu tidak ditemukan.',
@@ -113,33 +113,33 @@ class FoodMenuController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'name'        => 'sometimes|required|string|max:255',
-            'category'    => 'sometimes|required|string|in:sarapan,siang,malam,snack',
-            'calories'    => 'sometimes|required|integer|min:0',
-            'protein_g'   => 'nullable|integer|min:0',
-            'carbs_g'     => 'nullable|integer|min:0',
-            'fat_g'       => 'nullable|integer|min:0',
+            'name' => 'sometimes|required|string|max:255',
+            'category' => 'sometimes|required|string|in:sarapan,siang,malam,snack',
+            'calories' => 'sometimes|required|integer|min:0',
+            'protein_g' => 'nullable|integer|min:0',
+            'carbs_g' => 'nullable|integer|min:0',
+            'fat_g' => 'nullable|integer|min:0',
             'description' => 'nullable|string',
-            'image_url'   => 'nullable|string|max:255',
-            'is_active'   => 'sometimes|boolean',
+            'image_url' => 'nullable|string|max:255',
+            'is_active' => 'sometimes|boolean',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'errors'  => $validator->errors(),
+                'errors' => $validator->errors(),
             ], 422);
         }
 
         $menu->update($request->only([
             'name', 'category', 'calories', 'protein_g',
-            'carbs_g', 'fat_g', 'description', 'image_url', 'is_active',
+            'carbs_g', 'fat_g',    'description' => $request->description ?? '', 'image_url', 'is_active',
         ]));
 
         return response()->json([
             'success' => true,
             'message' => 'Menu berhasil diperbarui.',
-            'data'    => $menu,
+            'data' => $menu,
         ]);
     }
 
@@ -150,7 +150,7 @@ class FoodMenuController extends Controller
     {
         $menu = FoodMenu::find($id);
 
-        if (!$menu) {
+        if (! $menu) {
             return response()->json([
                 'success' => false,
                 'message' => 'Menu tidak ditemukan.',

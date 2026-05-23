@@ -167,7 +167,7 @@
         let lastPage = 1;
         let totalItems = 0;
         let searchTimeout = null;
-        const apiBase = '/api/admin/diet-plans';
+        const apiBase = @json(route('admin.api.diet-plans.index'));
 
         const tableBody = document.getElementById('planTableBody');
         const paginationInfo = document.getElementById('paginationInfo');

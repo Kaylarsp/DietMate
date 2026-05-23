@@ -10,7 +10,7 @@
     {{-- Top Section: Logo + Navigation --}}
     <div>
         {{-- Logo Area --}}
-        <div class="px-6 pt-16 pb-10">
+        <div class="px-6 pt-8 pb-10">
             <div class="flex items-center gap-3">
                 {{-- Logo Image --}}
                 <img src="{{ asset('images/admin/logo.png') }}" alt="DietMate Logo"
@@ -54,14 +54,22 @@
                         'icon' => 'icon-exercise.svg',
                         'iconWidth' => 'w-[16px]',
                         'iconHeight' => 'h-[20px]',
-                    ],
-                    'users' => [
-                        'route' => '#',
-                        'label' => 'Data User',
+                    ], 
+                    'users_profile' => [
+                        'route' => 'admin.users.profile',
+                        'label' => 'Data Profile User',
                         'icon' => 'icon-users.svg',
                         'iconWidth' => 'w-[22px]',
                         'iconHeight' => 'h-[16px]',
                     ],
+                    'users_account' => [
+                        'route' => 'admin.users.account',
+                        'label' => 'Data Akun User',
+                        'icon' => 'icon-users.svg',
+                        'iconWidth' => 'w-[22px]',
+                        'iconHeight' => 'h-[16px]',
+                    ],
+                    
                 ];
             @endphp
 
@@ -69,7 +77,7 @@
                 @php
                     $isActive = $activeRoute === $key;
                 @endphp
-                <a href="{{ in_array($key, ['dashboard', 'menu', 'diet-plan', 'exercise']) ? route($link['route']) : $link['route'] }}"
+                <a href="{{ in_array($key, ['dashboard', 'menu', 'diet-plan', 'exercise', 'users_account', 'users_profile']) ? route($link['route']) : $link['route'] }}"
                     class="flex items-center gap-3 px-6 py-3 {{ $isActive ? 'bg-[#008379] text-[#F4FFFC] border-r-4 border-[#00685F] font-semibold' : 'text-[#344B4A] hover:bg-[#e2e7e6] transition-colors' }}"
                     style="font-size: 14px; line-height: 16px; letter-spacing: 5%; {{ $isActive ? '' : 'font-weight: 600;' }}">
                     <img src="{{ asset('images/admin/' . $link['icon']) }}" alt=""
@@ -81,7 +89,7 @@
     </div>
 
     {{-- Bottom Section: Logout --}}
-    <div class="pb-16 px-0">
+    <div class="px-0 pb-4">
         <a href="#"
             class="flex items-center gap-3 px-6 py-3 text-[#BA1A1A] hover:bg-[#fde8e8] transition-colors"
             style="font-size: 14px; line-height: 16px; letter-spacing: 5%; font-weight: 600;">
