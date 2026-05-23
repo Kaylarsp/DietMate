@@ -137,7 +137,7 @@
             </div>
 
             {{-- Edit Card (hidden by default) --}}
-            <div id="editCard" class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,104,95,0.08)] border border-[#bcc9c6]/20 p-6 relative overflow-hidden mt-6 hidden">
+            <div id="editCard" class="bg-white rounded-xl shadow-[0px_4px_20px_rgba(0,104,95,0.08)] border border-[#bcc9c6]/20 p-6 relative overflow-hidden hidden">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-[#BAAE21]/30 rounded-bl-full -z-10 blur-2xl"></div>
                 <h3 class="text-2xl font-semibold text-[#00685F] mb-6 border-b border-[#bcc9c6]/30 pb-3 flex items-center gap-3">
                     <span class="material-symbols-outlined text-[#BAAE21]">edit</span>
