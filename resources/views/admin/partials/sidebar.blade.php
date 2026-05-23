@@ -54,6 +54,13 @@
                         'icon' => 'icon-exercise.svg',
                         'iconWidth' => 'w-[16px]',
                         'iconHeight' => 'h-[20px]',
+                    ], 
+                    'users_profile' => [
+                        'route' => 'admin.users.profile',
+                        'label' => 'Data Profile User',
+                        'icon' => 'icon-users.svg',
+                        'iconWidth' => 'w-[22px]',
+                        'iconHeight' => 'h-[16px]',
                     ],
                     'users_account' => [
                         'route' => 'admin.users.account',
@@ -62,13 +69,7 @@
                         'iconWidth' => 'w-[22px]',
                         'iconHeight' => 'h-[16px]',
                     ],
-                     'users_profile' => [
-                        'route' => 'admin.users.profile',
-                        'label' => 'Data Profile User',
-                        'icon' => 'icon-users.svg',
-                        'iconWidth' => 'w-[22px]',
-                        'iconHeight' => 'h-[16px]',
-                    ],
+                    
                 ];
             @endphp
 
