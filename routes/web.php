@@ -81,7 +81,7 @@ Route::get('/admin/kelola-diet-plan', [AdminDietPlanController::class, 'index'])
 Route::get('/admin/kelola-olahraga', [AdminWorkoutController::class, 'index'])->name('admin.exercise');
 
 // Admin Kelola User
-Route::get('/admin/kelola-user', [AdminUserController::class, 'index'])->name('admin.users');
+Route::get('/admin/kelola-akun-user', [AdminUserController::class, 'index'])->name('admin.users');
 
 // API routes for admin
 Route::prefix('api/admin')->group(function () {

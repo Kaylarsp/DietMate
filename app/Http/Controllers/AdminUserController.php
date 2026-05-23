@@ -11,6 +11,6 @@ class AdminUserController extends Controller
     {
         $users = User::latest()->paginate(10);
 
-        return view('admin.kelola-user', compact('users'));
+        return view('admin.kelola-akun-user', compact('users'));
     }
 }
