@@ -57,4 +57,9 @@ Route::get('/menu', function () {
 
 Route::get('/olahraga', function () {
     return view('user.olahraga');
-}); 
+});
+
+// Admin Dashboard
+Route::get('/admin/dashboard', function () {
+    return view('admin.dashboard');
+})->name('admin.dashboard');
