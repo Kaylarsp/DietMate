@@ -14,7 +14,7 @@
     </style>
 @endsection
 
-@php $activeRoute = 'users'; @endphp
+@php $activeRoute = 'users_account'; @endphp
 
 @section('content')
     <header class="flex justify-between items-end mb-16">

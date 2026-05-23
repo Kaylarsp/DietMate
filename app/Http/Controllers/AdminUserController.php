@@ -13,4 +13,9 @@ class AdminUserController extends Controller
 
         return view('admin.kelola-akun-user', compact('users'));
     }
+
+    public function profile()
+    {
+        return view('admin.kelola-profile-user');
+    }
 }

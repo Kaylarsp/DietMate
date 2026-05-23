@@ -55,9 +55,16 @@
                         'iconWidth' => 'w-[16px]',
                         'iconHeight' => 'h-[20px]',
                     ],
-                    'users' => [
-                        'route' => 'admin.users',
+                    'users_account' => [
+                        'route' => 'admin.users.account',
                         'label' => 'Data Akun User',
+                        'icon' => 'icon-users.svg',
+                        'iconWidth' => 'w-[22px]',
+                        'iconHeight' => 'h-[16px]',
+                    ],
+                     'users_profile' => [
+                        'route' => 'admin.users.profile',
+                        'label' => 'Data Profile User',
                         'icon' => 'icon-users.svg',
                         'iconWidth' => 'w-[22px]',
                         'iconHeight' => 'h-[16px]',
@@ -69,7 +76,7 @@
                 @php
                     $isActive = $activeRoute === $key;
                 @endphp
-                <a href="{{ in_array($key, ['dashboard', 'menu', 'diet-plan', 'exercise', 'users']) ? route($link['route']) : $link['route'] }}"
+                <a href="{{ in_array($key, ['dashboard', 'menu', 'diet-plan', 'exercise', 'users_account', 'users_profile']) ? route($link['route']) : $link['route'] }}"
                     class="flex items-center gap-3 px-6 py-3 {{ $isActive ? 'bg-[#008379] text-[#F4FFFC] border-r-4 border-[#00685F] font-semibold' : 'text-[#344B4A] hover:bg-[#e2e7e6] transition-colors' }}"
                     style="font-size: 14px; line-height: 16px; letter-spacing: 5%; {{ $isActive ? '' : 'font-weight: 600;' }}">
                     <img src="{{ asset('images/admin/' . $link['icon']) }}" alt=""
