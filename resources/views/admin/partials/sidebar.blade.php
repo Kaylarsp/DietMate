@@ -10,7 +10,7 @@
     {{-- Top Section: Logo + Navigation --}}
     <div>
         {{-- Logo Area --}}
-        <div class="px-6 pt-16 pb-10">
+        <div class="px-6 pt-8 pb-10">
             <div class="flex items-center gap-3">
                 {{-- Logo Image --}}
                 <img src="{{ asset('images/admin/logo.png') }}" alt="DietMate Logo"
@@ -89,7 +89,7 @@
     </div>
 
     {{-- Bottom Section: Logout --}}
-    <div class="pb-16 px-0">
+    <div class="px-0 pb-4">
         <a href="#"
             class="flex items-center gap-3 px-6 py-3 text-[#BA1A1A] hover:bg-[#fde8e8] transition-colors"
             style="font-size: 14px; line-height: 16px; letter-spacing: 5%; font-weight: 600;">
