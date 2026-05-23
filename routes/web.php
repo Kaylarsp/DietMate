@@ -57,4 +57,7 @@ Route::get('/menu', function () {
 
 Route::get('/olahraga', function () {
     return view('user.olahraga');
-}); 
+});
+
+// Admin Dashboard
+Route::get('/admin/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('admin.dashboard');
