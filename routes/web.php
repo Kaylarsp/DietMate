@@ -6,9 +6,11 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminMenuController;
 use App\Http\Controllers\AdminDietPlanController;
 use App\Http\Controllers\AdminWorkoutController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\Api\FoodMenuController as FoodMenuApiController;
 use App\Http\Controllers\Api\DietPlanController as DietPlanApiController;
 use App\Http\Controllers\Api\WorkoutController as WorkoutApiController;
+use App\Http\Controllers\Api\UserController as UserApiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -78,6 +80,9 @@ Route::get('/admin/kelola-diet-plan', [AdminDietPlanController::class, 'index'])
 // Admin Kelola Olahraga
 Route::get('/admin/kelola-olahraga', [AdminWorkoutController::class, 'index'])->name('admin.exercise');
 
+// Admin Kelola User
+Route::get('/admin/kelola-user', [AdminUserController::class, 'index'])->name('admin.users');
+
 // API routes for admin
 Route::prefix('api/admin')->group(function () {
     Route::get('/food-menus', [FoodMenuApiController::class, 'index']);
@@ -97,4 +102,9 @@ Route::prefix('api/admin')->group(function () {
     Route::get('/workouts/{id}', [WorkoutApiController::class, 'show']);
     Route::put('/workouts/{id}', [WorkoutApiController::class, 'update']);
     Route::delete('/workouts/{id}', [WorkoutApiController::class, 'destroy']);
+
+    Route::get('/users', [UserApiController::class, 'index']);
+    Route::get('/users/{id}', [UserApiController::class, 'show']);
+    Route::put('/users/{id}', [UserApiController::class, 'update']);
+    Route::delete('/users/{id}', [UserApiController::class, 'destroy']);
 });
