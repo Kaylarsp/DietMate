@@ -60,6 +60,4 @@ Route::get('/olahraga', function () {
 });
 
 // Admin Dashboard
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
+Route::get('/admin/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('admin.dashboard');

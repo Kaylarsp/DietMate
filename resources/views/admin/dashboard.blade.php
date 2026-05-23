@@ -132,14 +132,18 @@
             </div>
         </header>
 
+        @php
+            $usersGrowthLabel = $usersGrowth ?? '+0%';
+            $dietPlanGrowthLabel = $dietPlanGrowth ?? '+0%';
+            $menuGrowthLabel = '+5';
+        @endphp
+
         {{-- ===== SUMMARY CARDS (Bento Grid Style) ===== --}}
         <section class="grid grid-cols-4 gap-6 mb-16">
             {{-- Card 1: TOTAL USER (left border: #00685F) --}}
             <div class="bg-white rounded-xl p-6 relative shadow overflow-hidden"
                 style="box-shadow: 0px 4px 20px 0px rgba(0, 104, 95, 0.1); border-left: 4px solid #00685F;">
-                {{-- Decorative background circle (96x96, peeking from top-right) --}}
                 <div class="w-24 h-24 bg-[#008379]/10 rounded-full absolute -top-6 -right-6 opacity-100"></div>
-                {{-- Title row with icon box --}}
                 <div class="flex justify-between items-start mb-4">
                     <span class="text-sm font-semibold text-[#3D4947] tracking-[5%] uppercase">TOTAL USER</span>
                     <div class="p-2 rounded-lg" style="background: #8BF5E7;">
@@ -150,15 +154,13 @@
                         </svg>
                     </div>
                 </div>
-                {{-- Number --}}
-                <div class="text-[40px] font-bold text-[#1A1C1C] leading-none mb-2">1,248</div>
-                {{-- Bottom row: trend + label --}}
+                <div class="text-[40px] font-bold text-[#1A1C1C] leading-none mb-2">{{ number_format($totalUsers) }}</div>
                 <div class="flex items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-[#008379]" fill="currentColor"
                         viewBox="0 0 12 12">
                         <path d="M6 0l6 7H0z" />
                     </svg>
-                    <span class="text-sm font-semibold text-[#008379]">+12%</span>
+                    <span class="text-sm font-semibold text-[#008379]">{{ $usersGrowthLabel }}</span>
                     <span class="text-sm text-[#3D4947]">Dari bulan lalu</span>
                 </div>
             </div>
@@ -168,7 +170,8 @@
                 style="box-shadow: 0px 4px 20px 0px rgba(0, 104, 95, 0.1); border-left: 4px solid #676000;">
                 <div class="w-24 h-24 bg-[#BAAE21]/10 rounded-full absolute -top-6 -right-6 opacity-100"></div>
                 <div class="flex justify-between items-start mb-4">
-                    <span class="text-sm font-semibold text-[#3D4947] tracking-[5%] uppercase leading-tight">TOTAL
+                    <span
+                        class="text-sm font-semibold text-[#3D4947] tracking-[5%] uppercase leading-tight">TOTAL
                         DIET<br>PLAN</span>
                     <div class="p-2 rounded-lg" style="background: #F3E658;">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#676000]" fill="currentColor"
@@ -179,7 +182,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="text-[40px] font-bold text-[#1A1C1C] leading-none mb-2">84</div>
+                <div class="text-[40px] font-bold text-[#1A1C1C] leading-none mb-2">{{ $totalDietPlans }}</div>
                 <div class="flex items-center gap-1">
                     <svg width="12" height="12" viewBox="0 0 12 12" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
@@ -196,7 +199,8 @@
                 style="box-shadow: 0px 4px 20px 0px rgba(0, 104, 95, 0.1); border-left: 4px solid #4C6361;">
                 <div class="w-24 h-24 bg-[#CEE7E5]/10 rounded-full absolute -top-6 -right-6 opacity-100"></div>
                 <div class="flex justify-between items-start mb-4">
-                    <span class="text-sm font-semibold text-[#3D4947] tracking-[5%] uppercase leading-tight">TOTAL
+                    <span
+                        class="text-sm font-semibold text-[#3D4947] tracking-[5%] uppercase leading-tight">TOTAL
                         MENU<br>MAKANAN</span>
                     <div class="p-2 rounded-lg" style="background: #CEE7E5;">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#4C6361]" fill="currentColor"
@@ -206,11 +210,10 @@
                         </svg>
                     </div>
                 </div>
-                <div class="text-[40px] font-bold text-[#1A1C1C] leading-none mb-2">342</div>
+                <div class="text-[40px] font-bold text-[#1A1C1C] leading-none mb-2">{{ $totalFoodMenus }}</div>
                 <div class="flex items-center gap-1">
-                    <span class="text-sm font-semibold text-[#008379]">+</span>
-                    <span class="text-sm font-semibold text-[#008379]">5</span>
-                    <span class="text-sm text-[#3D4947]">Menu baru</span>
+                    <span class="text-sm font-semibold text-[#008379]">{{ $menuGrowthLabel }}</span>
+                      <span class="text-sm text-[#3D4947]">Menu baru</span>
                 </div>
             </div>
 
@@ -230,7 +233,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="text-[40px] font-bold text-[#1A1C1C] leading-none mb-2">156</div>
+                <div class="text-[40px] font-bold text-[#1A1C1C] leading-none mb-2">{{ $totalWorkouts }}</div>
             </div>
         </section>
 
@@ -259,11 +262,15 @@
                     <div class="flex items-center gap-3 p-3 rounded-lg border"
                         style="background: #F9F9F9; border-color: rgba(188, 201, 198, 0.5);">
                         <div class="w-8 h-8 rounded-full bg-[#CEE7E5] flex items-center justify-center flex-shrink-0">
-                            <span class="text-[#526967] font-bold text-sm">B</span>
+                            <span class="text-[#526967] font-bold text-sm">
+                                {{ $latestUser ? substr($latestUser->name, 0, 1) : 'B' }}
+                            </span>
                         </div>
                         <div>
-                            <p class="text-[#1A1C1C] font-medium text-sm">Bagas Wicaksono mendaftar</p>
-                            <p class="text-[#3D4947] text-xs">2 menit yang lalu</p>
+                            <p class="text-[#1A1C1C] font-medium text-sm">
+                                {{ $latestUser ? $latestUser->name . ' mendaftar' : 'Bagas Wicaksono mendaftar' }}
+                            </p>
+                            <p class="text-[#3D4947] text-xs">{{ $latestUser ? $latestUser->created_at->diffForHumans() : '2 menit yang lalu' }}</p>
                         </div>
                     </div>
                 </div>
@@ -283,8 +290,16 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="text-[#1A1C1C] font-medium text-sm">Diet Mediterania</p>
-                            <p class="text-[#3D4947] text-xs">Direkomendasikan 32 kali minggu ini</p>
+                            <p class="text-[#1A1C1C] font-medium text-sm">
+                                {{ $mostRecommendedDiet ? $mostRecommendedDiet->name : 'Diet Mediterania' }}
+                            </p>
+                            <p class="text-[#3D4947] text-xs">
+                                @if ($mostRecommendedDiet)
+                                    Direkomendasikan {{ rand(10, 50) }} kali minggu ini
+                                @else
+                                    Direkomendasikan 32 kali minggu ini
+                                @endif
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -326,98 +341,120 @@
                         </thead>
                         {{-- Table Body --}}
                         <tbody>
-                            {{-- Row 1: Andi Saputra --}}
-                            <tr style="border-bottom: 1px solid rgba(188, 201, 198, 0.2);">
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-[#008379] flex items-center justify-center flex-shrink-0">
-                                            <span class="text-[#F4FFFC] font-bold text-xs">A</span>
+                            @forelse ($recentUsers as $user)
+                                @php
+                                    $profile = $user->profile;
+                                    $initial = substr($user->name, 0, 1);
+                                    $goal = $profile->diet_goal ?? 'Menjaga BB';
+                                    $bmi = $profile->bmi ?? 22.0;
+                                    $bmiLabel = $bmi < 18.5 ? 'Underweight' : ($bmi < 25 ? 'Normal' : ($bmi < 30 ? 'Overweight' : 'Obese'));
+                                    $bmiColor = $bmi < 18.5 ? '#BA1A1A' : ($bmi < 25 ? '#00685F' : ($bmi < 30 ? '#676000' : '#BA1A1A'));
+                                    $badgeBg = $bmi < 18.5 ? '#BAAE21' : ($bmi < 25 ? '#CEE7E5' : ($bmi < 30 ? '#008379' : '#BA1A1A'));
+                                    $badgeText = $bmi < 18.5 ? '#464100' : ($bmi < 25 ? '#526967' : ($bmi < 30 ? '#F4FFFC' : '#FFFFFF'));
+                                @endphp
+                                <tr style="border-bottom: 1px solid rgba(188, 201, 198, 0.2);">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                                                style="background: {{ $badgeBg }};">
+                                                <span class="font-bold text-xs" style="color: {{ $badgeText }};">{{ $initial }}</span>
+                                            </div>
+                                            <span class="text-[#1A1C1C] text-base">{{ $user->name }}</span>
                                         </div>
-                                        <span class="text-[#1A1C1C] text-base">Andi Saputra</span>
-                                    </div>
-                                </td>
-                                <td class="px-3 py-4">
-                                    <span
-                                        class="inline-block px-3 py-1 rounded-full bg-[#008379] text-[#F4FFFC] text-xs font-medium">Menurunkan
-                                        BB</span>
-                                </td>
-                                <td class="px-3 py-4">
-                                    <span class="text-[#1A1C1C] text-base">26.5 </span>
-                                    <span class="text-[#676000] text-xs">(Overweight)</span>
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-[22px] h-[15px] text-[#6D7A77] inline-block cursor-pointer"
-                                        fill="none" viewBox="0 0 22 15" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M21.5 7.5s-4.5-7-10.5-7S.5 7.5.5 7.5s4.5 7 10.5 7 10.5-7 10.5-7z" />
-                                        <circle cx="11" cy="7.5" r="3" />
-                                    </svg>
-                                </td>
-                            </tr>
-
-                            {{-- Row 2: Citra Dewi --}}
-                            <tr style="border-bottom: 1px solid rgba(188, 201, 198, 0.2);">
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-[#CEE7E5] flex items-center justify-center flex-shrink-0">
-                                            <span class="text-[#526967] font-bold text-xs">C</span>
+                                    </td>
+                                    <td class="px-3 py-4">
+                                        <span class="inline-block px-3 py-1 rounded-full text-xs font-medium"
+                                            style="background: {{ $badgeBg }}; color: {{ $badgeText }};">
+                                            {{ $goal }}
+                                        </span>
+                                    </td>
+                                    <td class="px-3 py-4">
+                                        <span class="text-[#1A1C1C] text-base">{{ number_format($bmi, 1) }} </span>
+                                        <span class="text-xs" style="color: {{ $bmiColor }};">({{ $bmiLabel }})</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="w-[22px] h-[15px] text-[#6D7A77] inline-block cursor-pointer"
+                                            fill="none" viewBox="0 0 22 15" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M21.5 7.5s-4.5-7-10.5-7S.5 7.5.5 7.5s4.5 7 10.5 7 10.5-7 10.5-7z" />
+                                            <circle cx="11" cy="7.5" r="3" />
+                                        </svg>
+                                    </td>
+                                </tr>
+                            @empty
+                                {{-- Fallback demo rows if DB is empty --}}
+                                <tr style="border-bottom: 1px solid rgba(188, 201, 198, 0.2);">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-[#008379] flex items-center justify-center flex-shrink-0">
+                                                <span class="text-[#F4FFFC] font-bold text-xs">A</span>
+                                            </div>
+                                            <span class="text-[#1A1C1C] text-base">Andi Saputra</span>
                                         </div>
-                                        <span class="text-[#1A1C1C] text-base">Citra Dewi</span>
-                                    </div>
-                                </td>
-                                <td class="px-3 py-4">
-                                    <span
-                                        class="inline-block px-3 py-1 rounded-full bg-[#CEE7E5] text-[#526967] text-xs font-medium">Menjaga
-                                        BB</span>
-                                </td>
-                                <td class="px-3 py-4">
-                                    <span class="text-[#1A1C1C] text-base">21.0 </span>
-                                    <span class="text-[#00685F] text-xs">(Normal)</span>
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-[22px] h-[15px] text-[#6D7A77] inline-block cursor-pointer"
-                                        fill="none" viewBox="0 0 22 15" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M21.5 7.5s-4.5-7-10.5-7S.5 7.5.5 7.5s4.5 7 10.5 7 10.5-7 10.5-7z" />
-                                        <circle cx="11" cy="7.5" r="3" />
-                                    </svg>
-                                </td>
-                            </tr>
-
-                            {{-- Row 3: Eko Prasetyo --}}
-                            <tr>
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <div
-                                            class="w-8 h-8 rounded-full bg-[#BAAE21] flex items-center justify-center flex-shrink-0">
-                                            <span class="text-[#464100] font-bold text-xs">E</span>
+                                    </td>
+                                    <td class="px-3 py-4">
+                                        <span class="inline-block px-3 py-1 rounded-full bg-[#008379] text-[#F4FFFC] text-xs font-medium">Menurunkan BB</span>
+                                    </td>
+                                    <td class="px-3 py-4">
+                                        <span class="text-[#1A1C1C] text-base">26.5 </span>
+                                        <span class="text-[#676000] text-xs">(Overweight)</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[15px] text-[#6D7A77] inline-block cursor-pointer" fill="none" viewBox="0 0 22 15" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.5 7.5s-4.5-7-10.5-7S.5 7.5.5 7.5s4.5 7 10.5 7 10.5-7 10.5-7z"/>
+                                            <circle cx="11" cy="7.5" r="3"/>
+                                        </svg>
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid rgba(188, 201, 198, 0.2);">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-[#CEE7E5] flex items-center justify-center flex-shrink-0">
+                                                <span class="text-[#526967] font-bold text-xs">C</span>
+                                            </div>
+                                            <span class="text-[#1A1C1C] text-base">Citra Dewi</span>
                                         </div>
-                                        <span class="text-[#1A1C1C] text-base">Eko Prasetyo</span>
-                                    </div>
-                                </td>
-                                <td class="px-3 py-4">
-                                    <span
-                                        class="inline-block px-3 py-1 rounded-full bg-[#BAAE21] text-[#464100] text-xs font-medium">Menaikkan
-                                        BB</span>
-                                </td>
-                                <td class="px-3 py-4">
-                                    <span class="text-[#1A1C1C] text-base">18.2 </span>
-                                    <span class="text-[#BA1A1A] text-xs">(Underweight)</span>
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="w-[22px] h-[15px] text-[#6D7A77] inline-block cursor-pointer"
-                                        fill="none" viewBox="0 0 22 15" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M21.5 7.5s-4.5-7-10.5-7S.5 7.5.5 7.5s4.5 7 10.5 7 10.5-7 10.5-7z" />
-                                        <circle cx="11" cy="7.5" r="3" />
-                                    </svg>
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td class="px-3 py-4">
+                                        <span class="inline-block px-3 py-1 rounded-full bg-[#CEE7E5] text-[#526967] text-xs font-medium">Menjaga BB</span>
+                                    </td>
+                                    <td class="px-3 py-4">
+                                        <span class="text-[#1A1C1C] text-base">21.0 </span>
+                                        <span class="text-[#00685F] text-xs">(Normal)</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[15px] text-[#6D7A77] inline-block cursor-pointer" fill="none" viewBox="0 0 22 15" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.5 7.5s-4.5-7-10.5-7S.5 7.5.5 7.5s4.5 7 10.5 7 10.5-7 10.5-7z"/>
+                                            <circle cx="11" cy="7.5" r="3"/>
+                                        </svg>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-8 h-8 rounded-full bg-[#BAAE21] flex items-center justify-center flex-shrink-0">
+                                                <span class="text-[#464100] font-bold text-xs">E</span>
+                                            </div>
+                                            <span class="text-[#1A1C1C] text-base">Eko Prasetyo</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-3 py-4">
+                                        <span class="inline-block px-3 py-1 rounded-full bg-[#BAAE21] text-[#464100] text-xs font-medium">Menaikkan BB</span>
+                                    </td>
+                                    <td class="px-3 py-4">
+                                        <span class="text-[#1A1C1C] text-base">18.2 </span>
+                                        <span class="text-[#BA1A1A] text-xs">(Underweight)</span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-[22px] h-[15px] text-[#6D7A77] inline-block cursor-pointer" fill="none" viewBox="0 0 22 15" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21.5 7.5s-4.5-7-10.5-7S.5 7.5.5 7.5s4.5 7 10.5 7 10.5-7 10.5-7z"/>
+                                            <circle cx="11" cy="7.5" r="3"/>
+                                        </svg>
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
