@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController; 
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminMenuController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,4 +62,7 @@ Route::get('/olahraga', function () {
 });
 
 // Admin Dashboard
-Route::get('/admin/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+// Admin Kelola Menu Makanan
+Route::get('/admin/kelola-menu-makanan', [AdminMenuController::class, 'index'])->name('admin.menu');
