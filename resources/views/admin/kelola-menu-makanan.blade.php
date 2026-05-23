@@ -196,7 +196,7 @@
         let lastPage = 1;
         let totalItems = 0;
         let searchTimeout = null;
-        const apiBase = '/api/admin/food-menus';
+        const apiBase = @json(route('admin.api.food-menus.index'));
 
         // DOM elements
         const tableBody = document.getElementById('menuTableBody');

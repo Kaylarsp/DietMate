@@ -160,7 +160,7 @@
         let lastPage = 1;
         let totalItems = 0;
         let searchTimeout = null;
-        const apiBase = '/api/admin/user-profiles';
+        const apiBase = @json(route('admin.api.user-profiles.index'));
 
         const tableBody = document.getElementById('profileTableBody');
         const paginationInfo = document.getElementById('paginationInfo');

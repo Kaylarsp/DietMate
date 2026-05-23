@@ -190,7 +190,7 @@
         let lastPage = 1;
         let totalItems = 0;
         let searchTimeout = null;
-        const apiBase = '/api/admin/workouts';
+        const apiBase = @json(route('admin.api.workouts.index'));
 
         const tableBody = document.getElementById('workoutTableBody');
         const paginationInfo = document.getElementById('paginationInfo');

@@ -123,7 +123,7 @@
         let lastPage = 1;
         let totalItems = 0;
         let searchTimeout = null;
-        const apiBase = '/api/admin/users';
+        const apiBase = @json(route('admin.api.users.index'));
 
         const tableBody = document.getElementById('userTableBody');
         const paginationInfo = document.getElementById('paginationInfo');
