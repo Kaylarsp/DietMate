@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController; 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminMenuController;
+use App\Http\Controllers\AdminDietPlanController;
 use App\Http\Controllers\Api\FoodMenuController as FoodMenuApiController;
+use App\Http\Controllers\Api\DietPlanController as DietPlanApiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -68,11 +70,20 @@ Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name
 // Admin Kelola Menu Makanan
 Route::get('/admin/kelola-menu-makanan', [AdminMenuController::class, 'index'])->name('admin.menu');
 
-// API routes for admin food menus
+// Admin Kelola Diet Plan
+Route::get('/admin/kelola-diet-plan', [AdminDietPlanController::class, 'index'])->name('admin.diet-plan');
+
+// API routes for admin
 Route::prefix('api/admin')->group(function () {
     Route::get('/food-menus', [FoodMenuApiController::class, 'index']);
     Route::post('/food-menus', [FoodMenuApiController::class, 'store']);
     Route::get('/food-menus/{id}', [FoodMenuApiController::class, 'show']);
     Route::put('/food-menus/{id}', [FoodMenuApiController::class, 'update']);
     Route::delete('/food-menus/{id}', [FoodMenuApiController::class, 'destroy']);
+
+    Route::get('/diet-plans', [DietPlanApiController::class, 'index']);
+    Route::post('/diet-plans', [DietPlanApiController::class, 'store']);
+    Route::get('/diet-plans/{id}', [DietPlanApiController::class, 'show']);
+    Route::put('/diet-plans/{id}', [DietPlanApiController::class, 'update']);
+    Route::delete('/diet-plans/{id}', [DietPlanApiController::class, 'destroy']);
 });
