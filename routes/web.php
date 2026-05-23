@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController; 
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminMenuController;
+use App\Http\Controllers\Api\FoodMenuController as FoodMenuApiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,4 +63,16 @@ Route::get('/olahraga', function () {
 });
 
 // Admin Dashboard
-Route::get('/admin/dashboard', [App\Http\Controllers\AdminDashboardController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+// Admin Kelola Menu Makanan
+Route::get('/admin/kelola-menu-makanan', [AdminMenuController::class, 'index'])->name('admin.menu');
+
+// API routes for admin food menus
+Route::prefix('api/admin')->group(function () {
+    Route::get('/food-menus', [FoodMenuApiController::class, 'index']);
+    Route::post('/food-menus', [FoodMenuApiController::class, 'store']);
+    Route::get('/food-menus/{id}', [FoodMenuApiController::class, 'show']);
+    Route::put('/food-menus/{id}', [FoodMenuApiController::class, 'update']);
+    Route::delete('/food-menus/{id}', [FoodMenuApiController::class, 'destroy']);
+});
