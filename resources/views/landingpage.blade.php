@@ -458,12 +458,12 @@
     <h1 class="hero-title">Temukan program diet yang cocok untuk tubuh dan tujuanmu</h1>
     <p class="hero-desc">Raih target diet Anda dengan rekomendasi menu harian yang dipersonalisasi. Sistem kami menggunakan algoritma cerdas berdasarkan kebutuhan kalori, BMI, dan preferensi makanan Anda.</p>
     <div class="hero-cta">
-      <button class="btn-hero-primary">
+      <a href="{{ route('profile-register') }}" class="btn-hero-primary">
         Mulai Diet Sekarang
-        <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 0;">arrow_forward</span>
-      </button>
+       <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 0;">arrow_forward</span>
+      </a>
       <button class="btn-hero-outline">Lihat Fitur</button>
-    </div>
+    </div> 
   </div>
 </section>
 

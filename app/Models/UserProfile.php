@@ -3,13 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class UserProfile extends Model
 {
-    protected $guarded = [];
+    protected $table = 'user_profiles';
 
-    public function user(): BelongsTo
+    protected $fillable = [
+        'id',
+        'user_id',
+        'age',
+        'gender',
+        'height_cm',
+        'weight_kg',
+        'activity_level',
+        'bmi',
+        'daily_calorie_target',
+        'diet_goal'
+    ];
+
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
