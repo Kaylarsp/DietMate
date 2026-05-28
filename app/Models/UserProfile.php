@@ -18,11 +18,17 @@ class UserProfile extends Model
         'activity_level',
         'bmi',
         'daily_calorie_target',
-        'diet_goal'
+        'diet_goal',
+        'has_food_preferences'
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function foodPreferences()
+    {
+        return $this->hasMany(FoodPreference::class, 'user_profile_id');
     }
 }

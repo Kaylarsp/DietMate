@@ -53,9 +53,10 @@ Route::get('/dashboard', function () {
     return view('user.dashboard');
 });
 
-
-Route::get('/profile-dashboard', [UserProfileController::class, 'index'])
-    ->name('profile-dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile-dashboard', [UserProfileController::class, 'index'])->name('profile.dashboard');
+    Route::post('/profile-dashboard/update', [UserProfileController::class, 'update'])->name('profile.update');
+});
 
 Route::controller(UserProfileController::class)->group(function () {
 
