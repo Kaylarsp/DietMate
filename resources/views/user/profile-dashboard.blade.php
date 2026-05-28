@@ -419,7 +419,7 @@
             {{-- <span style="font-size:10px; color:#aaa; font-weight:normal; margin-left:5px;">REKOMENDASI DIET</span> --}}
         </div>
 
-        <a href="#" class="menu-item">
+        <a href="dashboard" class="menu-item">
             <i class="bi bi-grid-1x2"></i> Dashboard
         </a>
         <a href="#" class="menu-item">
