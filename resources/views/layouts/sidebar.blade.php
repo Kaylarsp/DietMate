@@ -12,7 +12,7 @@
             {{-- <a href="settings" class="menu-item"><i class="bi bi-gear"></i> Pengaturan</a> --}}
         </div>
 
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('logout') }}">
             @csrf
             <button type="submit" class="btn w-100 text-start menu-item logout-btn">
                 <i class="bi bi-box-arrow-right"></i> Keluar

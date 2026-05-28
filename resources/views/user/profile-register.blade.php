@@ -152,7 +152,7 @@
 
 <body>
 
-    @include('layouts.sidebar')
+    {{-- @include('layouts.sidebar') --}}
 
     <div class="main-content">
 
