@@ -152,18 +152,7 @@
 
 <body>
 
-    <div class="sidebar">
-
-        <div class="logo mb-5">
-            DietMate
-        </div>
-
-        <a href="#" class="menu-item menu-active">
-            <i class="bi bi-person"></i>
-            Profil
-        </a>
-
-    </div>
+    @include('layouts.sidebar')
 
     <div class="main-content">
 
