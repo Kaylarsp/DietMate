@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminWorkoutController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\FoodRecommendationController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,6 +54,8 @@ Route::get('/login/apple', function () {
 Route::get('/dashboard', function () {
     return view('user.dashboard');
 });
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile-dashboard', [UserProfileController::class, 'index'])->name('profile.dashboard');
