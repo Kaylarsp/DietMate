@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AuthenticatedSessionController; 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminMenuController;
 use App\Http\Controllers\AdminDietPlanController;
 use App\Http\Controllers\AdminWorkoutController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\UserProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -52,8 +53,18 @@ Route::get('/dashboard', function () {
     return view('user.dashboard');
 });
 
-Route::get('/profile', function () {
-    return view('user.profile');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile-dashboard', [UserProfileController::class, 'index'])->name('profile.dashboard');
+    Route::post('/profile-dashboard/update', [UserProfileController::class, 'update'])->name('profile.update');
+});
+
+Route::controller(UserProfileController::class)->group(function () {
+
+    Route::get('/profile-register', 'index');
+
+    Route::post('/profile-register', 'register')
+        ->name('profile-register');
+
 });
 
 Route::get('/menu', function () {
@@ -79,4 +90,3 @@ Route::get('/admin/kelola-olahraga', [AdminWorkoutController::class, 'index'])->
 // Admin Kelola User
 Route::get('/admin/kelola-akun-user', [AdminUserController::class, 'index'])->name('admin.users.account');
 Route::get('/admin/kelola-profile-user', [AdminUserController::class, 'profile'])->name('admin.users.profile');
-
