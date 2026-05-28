@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminDietPlanController;
 use App\Http\Controllers\AdminWorkoutController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\FoodRecommendationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -67,9 +68,7 @@ Route::controller(UserProfileController::class)->group(function () {
 
 });
 
-Route::get('/menu', function () {
-    return view('user.menu');
-});
+Route::get('/menu', [FoodRecommendationController::class, 'index']);
 
 Route::get('/olahraga', function () {
     return view('user.olahraga');

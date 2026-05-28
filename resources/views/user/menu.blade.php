@@ -1,575 +1,291 @@
-{{-- resources/views/recommendation.blade.php --}}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DietMate - Rencana Makan</title>
 
-    {{-- Bootstrap --}}
+    {{-- Bootstrap & Icons --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    {{-- Bootstrap Icons --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    {{-- Font --}}
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-        *{
-            font-family: 'Inter', sans-serif;
+        :root {
+            --primary: #0b7a6d;
+            --primary-light: #dcefed;
+            --bg-color: #f8fafc;
+            --text-main: #333333;
         }
 
-        body{
-            background: #edf7f5;
-        }
+        * { font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-color); color: var(--text-main); overflow-x: hidden; }
 
-        .sidebar{
-            width: 250px;
-            min-height: 100vh;
-            background: white;
-            position: fixed;
-            padding: 30px 20px;
-            border-right: 1px solid #e5e5e5;
-        }
+        /* --- SIDEBAR SAMA DENGAN PROFILE --- */
+        .sidebar { width: 260px; min-height: 100vh; background: white; border-right: 1px solid #edf2f7; position: fixed; padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; }
+        .logo { font-size: 22px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .logo i { background: var(--primary-light); padding: 5px 8px; border-radius: 8px; font-size: 18px; }
+        .menu-item { padding: 12px 16px; border-radius: 10px; color: #64748b; text-decoration: none; display: flex; align-items: center; gap: 14px; margin-bottom: 8px; font-size: 14px; font-weight: 500; transition: all 0.3s ease; }
+        .menu-item:hover { background: #f1f5f9; color: var(--primary); }
+        .menu-active { background: var(--primary-light) !important; color: var(--primary) !important; font-weight: 600; }
+        .logout-btn { margin-top: auto; }
 
-        .logo{
-            font-size: 30px;
-            font-weight: 700;
-            color: #0b7a6d;
-        }
+        /* --- MAIN CONTENT --- */
+        .main-content { margin-left: 260px; padding: 40px 50px; }
+        .page-title { font-size: 32px; font-weight: 700; color: #1e293b; }
 
-        .menu-item{
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: #4f4f4f;
-            padding: 12px 15px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            transition: 0.3s;
-        }
+        .meal-title { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; margin-top: 35px; }
+        .meal-title h3 { margin: 0; font-weight: 600; font-size: 22px;}
+        .meal-time { background: var(--primary-light); color: var(--primary); font-size: 13px; padding: 5px 14px; border-radius: 50px; font-weight: 600; }
 
-        .menu-item:hover,
-        .menu-active{
-            background: #cfe8e4;
-            color: #0b7a6d;
-        }
+        .meal-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 35px; border: 1px solid #f1f5f9;}
+        .meal-image { width: 100%; height: 100%; min-height: 250px; object-fit: cover; }
+        .meal-content { padding: 35px; }
+        .meal-name { font-size: 28px; font-weight: 700; margin-bottom: 12px; color: #1e293b;}
+        .meal-desc { color: #64748b; line-height: 1.6; margin-bottom: 25px; font-size: 15px;}
 
-        .main-content{
-            margin-left: 250px;
-            padding: 40px 50px;
-        }
+        .nutrition-box { background: #f8fafc; border-radius: 14px; padding: 15px; text-align: center; border: 1px solid #e2e8f0;}
+        .nutrition-title { color: #64748b; font-size: 13px; font-weight: 500; }
+        .nutrition-value { font-size: 22px; font-weight: 700; color: var(--primary); margin-top: 5px;}
 
-        .page-title{
-            font-size: 42px;
-            font-weight: 700;
-            color: #24312f;
-        }
+        .tip { margin-top: 25px; color: #64748b; font-size: 14px; background: #fffbeb; padding: 12px 15px; border-radius: 10px; border: 1px solid #fef3c7;}
+        .tip i { color: #d97706; margin-right: 5px; }
 
-        .meal-title{
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 20px;
-            margin-top: 35px;
-        }
+        .summary-card { border-radius: 20px; padding: 30px; height: 100%; border: 1px solid #f1f5f9; box-shadow: 0 4px 15px rgba(0,0,0,0.02);}
+        .summary-green { background: var(--primary); color: white; border: none; }
+        .summary-white { background: white; }
+        .summary-soft { background: var(--primary-light); border: none;}
+        .big-number { font-size: 42px; font-weight: 700; }
+        .progress { height: 8px; border-radius: 50px; background: #e2e8f0; }
 
-        .meal-title h3{
-            margin: 0;
-            font-weight: 600;
-        }
-
-        .meal-time{
-            background: #d9ece8;
-            color: #0b7a6d;
-            font-size: 13px;
-            padding: 5px 12px;
-            border-radius: 50px;
-            font-weight: 600;
-        }
-
-        .meal-card{
-            background: white;
-            border-radius: 22px;
-            overflow: hidden;
-            box-shadow: 0 5px 18px rgba(0,0,0,0.05);
-            margin-bottom: 35px;
-        }
-
-        .meal-image{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .meal-content{
-            padding: 35px;
-        }
-
-        .meal-name{
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-
-        .meal-desc{
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 25px;
-        }
-
-        .nutrition-box{
-            background: #f6f6f6;
-            border-radius: 14px;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .nutrition-title{
-            color: #777;
-            font-size: 13px;
-        }
-
-        .nutrition-value{
-            font-size: 24px;
-            font-weight: 700;
-            color: #0b7a6d;
-        }
-
-        .tip{
-            margin-top: 25px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .summary-card{
-            border-radius: 20px;
-            padding: 30px;
-            height: 100%;
-        }
-
-        .summary-green{
-            background: #0b8b7d;
-            color: white;
-        }
-
-        .summary-white{
-            background: white;
-        }
-
-        .summary-soft{
-            background: #dcefed;
-        }
-
-        .big-number{
-            font-size: 48px;
-            font-weight: 700;
-        }
-
-        .progress{
-            height: 10px;
-            border-radius: 50px;
-        }
-
-        footer{
-            margin-top: 80px;
-            background: #e7e7e7;
-            padding: 30px;
-            border-radius: 10px;
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-        }
+        footer { margin-top: 60px; padding: 30px; text-align: center; color: #94a3b8; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    {{-- Sidebar --}}
+    {{-- SIDEBAR --}}
     <div class="sidebar">
-
-        <div class="logo mb-5">
-            DietMate
+        <div>
+            <div class="logo mb-5">
+                <i class="bi bi-yelp text-primary"></i> DietMate
+            </div>
+            <a href="#" class="menu-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+            <a href="#" class="menu-item menu-active"><i class="bi bi-journal-text"></i> Rencana Makan</a>
+            <a href="#" class="menu-item"><i class="bi bi-bicycle"></i> Rekomendasi Olahraga</a>
+            <a href="#" class="menu-item"><i class="bi bi-graph-up"></i> Metrik Kesehatan</a>
+            <a href="#" class="menu-item"><i class="bi bi-person-fill"></i> Profil</a>
+            <a href="#" class="menu-item"><i class="bi bi-gear"></i> Pengaturan</a>
         </div>
-
-        <a href="#" class="menu-item">
-            <i class="bi bi-grid"></i>
-            Dashboard
-        </a>
-
-        <a href="#" class="menu-item menu-active">
-            <i class="bi bi-fork-knife"></i>
-            Rencana Makan
-        </a>
-
-        <a href="#" class="menu-item">
-            <i class="bi bi-activity"></i>
-            Rekomendasi Olahraga
-        </a>
-
-        <a href="#" class="menu-item">
-            <i class="bi bi-bar-chart"></i>
-            Metrik Kesehatan
-        </a>
-
-        <a href="#" class="menu-item">
-            <i class="bi bi-person"></i>
-            Profil
-        </a>
-
-        <a href="#" class="menu-item">
-            <i class="bi bi-gear"></i>
-            Pengaturan
-        </a>
-
-        <div class="mt-5 pt-5">
-            <a href="#" class="menu-item">
-                <i class="bi bi-box-arrow-left"></i>
-                Keluar
-            </a>
-        </div>
-
+        <a href="#" class="menu-item logout-btn"><i class="bi bi-box-arrow-right"></i> Keluar</a>
     </div>
 
-    {{-- Main Content --}}
+    {{-- MAIN CONTENT --}}
     <div class="main-content">
 
         <div class="d-flex justify-content-between align-items-center mb-5">
-
             <div>
-                <h1 class="page-title">
-                    Rekomendasi Menu Makan
-                </h1>
-
-                <p class="text-muted">
-                    Menu diet seimbang untuk Selasa, 24 Oktober
-                </p>
+                <h1 class="page-title">Rekomendasi Menu Makan</h1>
+                <p class="text-muted">Menu diet seimbang untuk hari ini, {{ now()->translatedFormat('l, d F Y') }}</p>
             </div>
-
             <div>
-                <i class="bi bi-bell fs-4"></i>
+                <i class="bi bi-bell fs-4 text-muted"></i>
             </div>
-
         </div>
 
-        {{-- Sarapan --}}
+        {{-- SARAPAN --}}
+        @if($sarapan)
         <div class="meal-title">
-            <div style="width:4px;height:40px;background:#0b7a6d;border-radius:10px;"></div>
-
+            <div style="width:5px;height:30px;background:var(--primary);border-radius:10px;"></div>
             <h3>Sarapan</h3>
-
-            <span class="meal-time">
-                07:00 - 08:30
-            </span>
+            <span class="meal-time">07:00 - 08:30</span>
         </div>
-
         <div class="meal-card">
-
             <div class="row g-0">
-
                 <div class="col-lg-4">
-                    <img
-                        src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1200"
-                        class="meal-image"
-                    >
+                    <img src="{{ $sarapan->image_url ?? 'https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=1200' }}" class="meal-image" alt="Sarapan">
                 </div>
-
                 <div class="col-lg-8">
-
                     <div class="meal-content">
-
-                        <h2 class="meal-name">
-                            Berry Smoothie Bowl
-                        </h2>
-
-                        <p class="meal-desc">
-                            Campuran buah beri segar dengan yogurt Greek rendah lemak
-                            dan chia seed untuk energi pagi.
-                        </p>
+                        <h2 class="meal-name">{{ $sarapan->name }}</h2>
+                        <p class="meal-desc">{{ $sarapan->description }}</p>
 
                         <div class="row g-3">
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Kalori</div>
-                                    <div class="nutrition-value">320</div>
+                                    <div class="nutrition-value">{{ $sarapan->calories }}</div>
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Protein</div>
-                                    <div class="nutrition-value">15g</div>
+                                    <div class="nutrition-value">{{ $sarapan->protein_g }}g</div>
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Karb</div>
-                                    <div class="nutrition-value">42g</div>
+                                    <div class="nutrition-value">{{ $sarapan->carbs_g }}g</div>
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Lemak</div>
-                                    <div class="nutrition-value">8g</div>
+                                    <div class="nutrition-value">{{ $sarapan->fat_g }}g</div>
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="tip">
-                            <i class="bi bi-info-circle"></i>
-                            Blender semua bahan dan sajikan dingin dengan granola.
-                        </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
+        @endif
 
-        {{-- Makan Siang --}}
+        {{-- MAKAN SIANG --}}
+        @if($makanSiang)
         <div class="meal-title">
-            <div style="width:4px;height:40px;background:#0b7a6d;border-radius:10px;"></div>
-
+            <div style="width:5px;height:30px;background:var(--primary);border-radius:10px;"></div>
             <h3>Makan Siang</h3>
-
-            <span class="meal-time">
-                12:00 - 13:30
-            </span>
+            <span class="meal-time">12:00 - 13:30</span>
         </div>
-
         <div class="meal-card">
-
             <div class="row g-0">
-
                 <div class="col-lg-8">
-
                     <div class="meal-content">
-
-                        <h2 class="meal-name">
-                            Mediterranean Quinoa Salad
-                        </h2>
-
-                        <p class="meal-desc">
-                            Salad quinoa sehat dengan sayuran organik, chickpeas,
-                            dan dressing lemon zaitun.
-                        </p>
+                        <h2 class="meal-name">{{ $makanSiang->name }}</h2>
+                        <p class="meal-desc">{{ $makanSiang->description }}</p>
 
                         <div class="row g-3">
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Kalori</div>
-                                    <div class="nutrition-value">450</div>
+                                    <div class="nutrition-value">{{ $makanSiang->calories }}</div>
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Protein</div>
-                                    <div class="nutrition-value">18g</div>
+                                    <div class="nutrition-value">{{ $makanSiang->protein_g }}g</div>
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Karb</div>
-                                    <div class="nutrition-value">55g</div>
+                                    <div class="nutrition-value">{{ $makanSiang->carbs_g }}g</div>
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Lemak</div>
-                                    <div class="nutrition-value">22g</div>
+                                    <div class="nutrition-value">{{ $makanSiang->fat_g }}g</div>
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="tip">
-                            <i class="bi bi-stars"></i>
-                            Campurkan semua bahan dan tambahkan balsamic sauce.
-                        </div>
-
                     </div>
-
                 </div>
-
                 <div class="col-lg-4">
-                    <img
-                        src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1200"
-                        class="meal-image"
-                    >
+                    <img src="{{ $makanSiang->image_url ?? 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=1200' }}" class="meal-image" alt="Makan Siang">
                 </div>
-
             </div>
-
         </div>
+        @endif
 
-        {{-- Makan Malam --}}
+        {{-- MAKAN MALAM --}}
+        @if($makanMalam)
         <div class="meal-title">
-            <div style="width:4px;height:40px;background:#0b7a6d;border-radius:10px;"></div>
-
+            <div style="width:5px;height:30px;background:var(--primary);border-radius:10px;"></div>
             <h3>Makan Malam</h3>
-
-            <span class="meal-time">
-                18:30 - 20:00
-            </span>
+            <span class="meal-time">18:30 - 20:00</span>
         </div>
-
         <div class="meal-card">
-
             <div class="row g-0">
-
                 <div class="col-lg-4">
-                    <img
-                        src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=1200"
-                        class="meal-image"
-                    >
+                    <img src="{{ $makanMalam->image_url ?? 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?q=80&w=1200' }}" class="meal-image" alt="Makan Malam">
                 </div>
-
                 <div class="col-lg-8">
-
                     <div class="meal-content">
-
-                        <h2 class="meal-name">
-                            Lemon Herb Grilled Salmon
-                        </h2>
-
-                        <p class="meal-desc">
-                            Salmon panggang dengan asparagus kukus dan rempah pilihan
-                            untuk nutrisi maksimal.
-                        </p>
+                        <h2 class="meal-name">{{ $makanMalam->name }}</h2>
+                        <p class="meal-desc">{{ $makanMalam->description }}</p>
 
                         <div class="row g-3">
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Kalori</div>
-                                    <div class="nutrition-value">380</div>
+                                    <div class="nutrition-value">{{ $makanMalam->calories }}</div>
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Protein</div>
-                                    <div class="nutrition-value">34g</div>
+                                    <div class="nutrition-value">{{ $makanMalam->protein_g }}g</div>
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Karb</div>
-                                    <div class="nutrition-value">12g</div>
+                                    <div class="nutrition-value">{{ $makanMalam->carbs_g }}g</div>
                                 </div>
                             </div>
-
                             <div class="col-md-3">
                                 <div class="nutrition-box">
                                     <div class="nutrition-title">Lemak</div>
-                                    <div class="nutrition-value">24g</div>
+                                    <div class="nutrition-value">{{ $makanMalam->fat_g }}g</div>
                                 </div>
                             </div>
-
                         </div>
-
-                        <div class="tip">
-                            <i class="bi bi-fire"></i>
-                            Panggang salmon selama 15 menit suhu 200°C.
-                        </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
+        @endif
 
-        {{-- Summary --}}
+        {{-- SUMMARY --}}
         <div class="row mt-5 g-4">
-
             <div class="col-lg-4">
-
                 <div class="summary-card summary-green">
-
-                    <p>Total Kalori Hari Ini</p>
-
+                    <p class="mb-2">Total Kalori Menu</p>
                     <div class="big-number">
-                        1,150
-                        <span style="font-size:22px;">kcal</span>
+                        {{ number_format($totalKaloriMenu, 0, ',', ',') }}
+                        <span style="font-size:20px; font-weight: 500;">kcal</span>
                     </div>
-
-                    <small>
-                        75% dari target harian Anda
+                    <small class="opacity-75">
+                        {{ $persentaseKalori }}% dari target harian Anda ({{ number_format($targetKalori, 0, ',', ',') }} kcal)
                     </small>
-
                 </div>
-
             </div>
 
             <div class="col-lg-4">
-
                 <div class="summary-card summary-white">
-
-                    <h5>Hidrasi</h5>
-
-                    <div class="d-flex align-items-center gap-3 my-4">
-                        <i class="bi bi-droplet fs-1 text-success"></i>
-
-                        <div class="big-number" style="font-size:40px;">
-                            6/8
+                    <h5 class="mb-1 text-dark fw-bold">Hidrasi</h5>
+                    <div class="d-flex align-items-center gap-3 my-3">
+                        <i class="bi bi-droplet-fill fs-1 text-primary"></i>
+                        <div class="big-number text-primary" style="font-size:36px;">
+                            0/8 <span style="font-size: 16px; color:#64748b;">Gelas</span>
                         </div>
                     </div>
-
                     <div class="progress">
-                        <div class="progress-bar bg-success"
-                             style="width:75%">
-                        </div>
+                        <div class="progress-bar bg-primary" style="width:0%"></div>
                     </div>
-
                 </div>
-
             </div>
 
             <div class="col-lg-4">
-
                 <div class="summary-card summary-soft">
-
-                    <h5>Rekomendasi Camilan</h5>
-
-                    <p class="mt-3 text-muted">
+                    <h5 class="mb-2 text-dark fw-bold">Rekomendasi Camilan</h5>
+                    <p class="text-muted" style="font-size: 14px;">
                         Almond atau apel potong untuk menjaga metabolisme.
                     </p>
-
-                    <div class="d-flex gap-2 mt-4">
-                        <span class="badge text-bg-light">
-                            Protein Tinggi
-                        </span>
-
-                        <span class="badge text-bg-light">
-                            Rendah Gula
-                        </span>
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <span class="badge bg-white text-dark border">Protein Tinggi</span>
+                        <span class="badge bg-white text-dark border">Rendah Gula</span>
                     </div>
-
                 </div>
-
             </div>
-
         </div>
 
-        {{-- Footer --}}
         <footer>
-            © 2026 DietMate Health. All rights reserved.
+            © {{ date('Y') }} DietMate. All rights reserved.
         </footer>
-
     </div>
 
 </body>
