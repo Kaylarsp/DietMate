@@ -63,21 +63,7 @@
 </head>
 <body>
 
-    {{-- SIDEBAR --}}
-    <div class="sidebar">
-        <div>
-            <div class="logo mb-5">
-                <i class="bi bi-yelp text-primary"></i> DietMate
-            </div>
-            <a href="dashboard" class="menu-item"><i class="bi bi-grid-1x2"></i> Dashboard</a>
-            <a href="" class="menu-item menu-active"><i class="bi bi-journal-text"></i> Rencana Makan</a>
-            <a href="#" class="menu-item"><i class="bi bi-bicycle"></i> Rekomendasi Olahraga</a>
-            <a href="" class="menu-item"><i class="bi bi-graph-up"></i> Metrik Kesehatan</a>
-            <a href="profile-dashboard" class="menu-item"><i class="bi bi-person-fill"></i> Profil</a>
-            <a href="#" class="menu-item"><i class="bi bi-gear"></i> Pengaturan</a>
-        </div>
-        <a href="#" class="menu-item logout-btn"><i class="bi bi-box-arrow-right"></i> Keluar</a>
-    </div>
+    @include('layouts.sidebar')
 
     {{-- MAIN CONTENT --}}
     <div class="main-content">
