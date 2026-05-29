@@ -66,6 +66,7 @@
     text-decoration: none; font-size: 14px; font-weight: 600;
     color: var(--on-surface-muted); transition: color .2s;
     padding-bottom: 2px;
+    cursor: pointer;
   }
   .nav-links a.active, .nav-links a:hover { color: var(--primary); }
   .nav-links a.active { border-bottom: 2px solid var(--primary); }
@@ -427,15 +428,15 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a class="nav-brand" href="#">
+    <a class="nav-brand" href="#home">
       <img src="{{ asset('img/logo.png') }}" alt="DietMate" style="height:34px; width:auto;">
       <span class="nav-brand-name">DietMate</span>
     </a>
     <div class="nav-links">
-      <a href="#" class="active">Beranda</a>
-      <a href="#">Fitur</a>
-      <a href="#">Dashboard</a>
-      <a href="#">Tips</a>
+      <a href="#home" class="active">Beranda</a>
+      <a href="#diet">Program Diet</a>
+      <a href="#dashboard" id="dashboardLink">Dashboard</a>
+      <a href="#menu">Rekomendasi</a>
     </div>
     <div class="nav-actions">
       <button class="btn-ghost">Masuk</button>
@@ -444,8 +445,8 @@
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero" style="padding:0;">
+<!-- HERO (Beranda) -->
+<section id="home" class="hero" style="padding:0;">
   <div class="hero-bg">
     <img src="{{ asset('img/bg.png') }}" alt="bg">
     <div class="hero-bg-overlay"></div>
@@ -478,8 +479,8 @@
   </div>
 </section>
 
-<!-- DIET TYPES -->
-<section class="diet-section">
+<!-- DIET TYPES (Fitur) -->
+<section id="diet" class="diet-section">
   <div class="section-inner">
     <div style="text-align:center;">
       <div class="section-tag"><span class="material-symbols-outlined" style="font-size:14px;">menu_book</span> Program Diet</div>
@@ -496,7 +497,6 @@
     </div>
 
     <div class="diet-grid" id="dietGrid">
-
       <!-- 1. Keto -->
       <div class="diet-card" data-category="turun">
         <div class="diet-card-header">
@@ -672,7 +672,6 @@
           <div class="diet-advantage-item"><div class="diet-advantage-dot"></div>Berat badan naik bertahap</div>
         </div>
       </div>
-
     </div><!-- end diet-grid -->
 
     <div class="diet-show-more">
@@ -683,6 +682,73 @@
     </div>
   </div>
 </section>
+
+<!-- MENU REKOMENDASI (Tips) -->
+<section id="menu" style="background:#fff; padding:56px 40px;">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:4px;">
+      <div class="section-tag"><span class="material-symbols-outlined" style="font-size:14px;">restaurant_menu</span> Menu Harian</div>
+      <h2 class="section-title" style="margin:0 auto 10px;">Rekomendasi Menu Makan</h2>
+      <p class="section-subtitle" style="margin:0 auto; text-align:center;">Pilihan menu sehat untuk sarapan, makan siang, dan malam — lengkap dengan info kalori dan makronutrisi.</p>
+    </div>
+
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin:24px 0;" id="menuFilter">
+      <button class="filter-btn active" data-cat="all">Semua</button>
+      <button class="filter-btn" data-cat="sarapan">Sarapan</button>
+      <button class="filter-btn" data-cat="siang">Makan Siang</button>
+      <button class="filter-btn" data-cat="malam">Makan Malam</button>
+    </div>
+
+    <div id="menuGrid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px;"></div>
+    <div style="text-align:center; margin-top:24px;">
+      <button class="btn-show-more" id="menuShowMore">
+        <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span> Lihat Semua Menu
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- OLAHRAGA REKOMENDASI (Dashboard) -->
+<section id="olahraga" style="background:linear-gradient(160deg,#eef8f6 0%,#f4fbf9 50%,#eaf6f4 100%); padding:56px 40px;">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:4px;">
+      <div class="section-tag"><span class="material-symbols-outlined" style="font-size:14px;">fitness_center</span> Olahraga</div>
+      <h2 class="section-title" style="margin:0 auto 10px;">Rekomendasi Olahraga</h2>
+      <p class="section-subtitle" style="margin:0 auto; text-align:center;">Pilih intensitas yang sesuai kondisi tubuh — dari santai hingga berat, semua terhitung kalorinya.</p>
+    </div>
+
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin:24px 0;" id="exFilter">
+      <button class="filter-btn active" data-int="all">Semua</button>
+      <button class="filter-btn" data-int="santai">Santai</button>
+      <button class="filter-btn" data-int="ringan">Ringan</button>
+      <button class="filter-btn" data-int="sedang">Sedang</button>
+      <button class="filter-btn" data-int="berat">Berat</button>
+    </div>
+
+    <div id="exGrid" style="display:grid; grid-template-columns:repeat(2,1fr); gap:14px;"></div>
+    <div style="text-align:center; margin-top:24px;">
+      <button class="btn-show-more" id="exShowMore">
+        <span class="material-symbols-outlined" style="font-size:18px;">expand_more</span> Lihat Semua Olahraga
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Modal Menu -->
+<div id="menuModal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:16px;max-width:380px;width:100%;padding:24px;position:relative;max-height:80vh;overflow-y:auto;">
+    <button onclick="document.getElementById('menuModal').style.display='none'" style="position:absolute;top:12px;right:12px;background:none;border:none;font-size:22px;cursor:pointer;color:#4e6665;">✕</button>
+    <div id="menuModalContent"></div>
+  </div>
+</div>
+
+<!-- Modal Exercise -->
+<div id="exModal" style="display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.5);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:16px;max-width:380px;width:100%;padding:24px;position:relative;max-height:80vh;overflow-y:auto;">
+    <button onclick="document.getElementById('exModal').style.display='none'" style="position:absolute;top:12px;right:12px;background:none;border:none;font-size:22px;cursor:pointer;color:#4e6665;">✕</button>
+    <div id="exModalContent"></div>
+  </div>
+</div>
 
 <!-- FEATURES BENTO -->
 <section class="features-section">
@@ -781,8 +847,8 @@
 </footer>
 
 <script>
-  // ── Filter tabs ──
-  const filterBtns = document.querySelectorAll('.filter-btn');
+  // ── Filter tabs untuk diet ──
+  const filterBtns = document.querySelectorAll('.diet-filter .filter-btn');
   const dietCards  = document.querySelectorAll('.diet-card');
   const btnShowMore = document.getElementById('btnShowMore');
   let showAll = false;
@@ -818,7 +884,7 @@
   // ── Show more / less ──
   btnShowMore.addEventListener('click', () => {
     showAll = !showAll;
-    const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+    const activeFilter = document.querySelector('.diet-filter .filter-btn.active').dataset.filter;
 
     dietCards.forEach(card => {
       const match = activeFilter === 'all' || card.dataset.category === activeFilter;
@@ -841,6 +907,224 @@
       ? '<span class="material-symbols-outlined" style="font-size:18px;">expand_less</span> Sembunyikan'
       : '<span class="material-symbols-outlined" style="font-size:18px;">expand_more</span> Lihat Semua Program Diet';
   });
+
+  // ── Data Menu ──
+  const menuData = [
+    {name:"Nasi Goreng Telur",cat:"sarapan",cal:450,pro:15,carb:60,fat:18,desc:"Nasi goreng dengan telur ceplok dan kecap manis",emoji:"🍳"},
+    {name:"Bubur Ayam",cat:"sarapan",cal:320,pro:18,carb:45,fat:8,desc:"Bubur beras dengan ayam suwir dan cakwe",emoji:"🍲"},
+    {name:"Roti Gandum + Selai Kacang",cat:"sarapan",cal:380,pro:14,carb:42,fat:16,desc:"2 lembar roti gandum dengan selai kacang natural",emoji:"🍞"},
+    {name:"Oatmeal Pisang",cat:"sarapan",cal:290,pro:10,carb:52,fat:5,desc:"Oatmeal dengan irisan pisang dan madu",emoji:"🍌"},
+    {name:"Omelet Sayuran",cat:"sarapan",cal:260,pro:18,carb:8,fat:18,desc:"Omelet dengan paprika, bawang, dan bayam",emoji:"🥚"},
+    {name:"Smoothie Mangga Yogurt",cat:"sarapan",cal:210,pro:8,carb:38,fat:3,desc:"Smoothie dari mangga segar dan yogurt plain",emoji:"🥤"},
+    {name:"Avocado Toast",cat:"sarapan",cal:330,pro:8,carb:28,fat:20,desc:"Roti gandum panggang dengan alpukat dan telur poach",emoji:"🥑"},
+    {name:"Yogurt Parfait",cat:"sarapan",cal:240,pro:12,carb:35,fat:4,desc:"Yogurt greek dengan granola dan buah beri",emoji:"🍓"},
+    {name:"Granola + Susu",cat:"sarapan",cal:310,pro:10,carb:48,fat:8,desc:"Granola panggang dengan susu rendah lemak",emoji:"🥣"},
+    {name:"Ubi Kukus + Teh Hijau",cat:"sarapan",cal:180,pro:3,carb:40,fat:1,desc:"Ubi jalar kukus sebagai pengganti nasi",emoji:"🍠"},
+    {name:"Nasi Ayam Bakar",cat:"siang",cal:620,pro:35,carb:72,fat:18,desc:"Nasi putih dengan ayam bakar bumbu kecap",emoji:"🍗"},
+    {name:"Gado-Gado",cat:"siang",cal:480,pro:20,carb:45,fat:25,desc:"Sayuran rebus dengan bumbu kacang dan kerupuk",emoji:"🥜"},
+    {name:"Soto Ayam",cat:"siang",cal:390,pro:28,carb:30,fat:14,desc:"Soto bening ayam dengan nasi putih dan emping",emoji:"🍜"},
+    {name:"Salad Ayam Panggang",cat:"siang",cal:310,pro:32,carb:15,fat:12,desc:"Salad segar dengan dada ayam panggang dan vinaigrette",emoji:"🥗"},
+    {name:"Sup Sayur Tahu",cat:"siang",cal:280,pro:14,carb:28,fat:10,desc:"Sup bening dengan tahu, wortel, dan kentang",emoji:"🥣"},
+    {name:"Bakso Kuah",cat:"siang",cal:440,pro:25,carb:48,fat:14,desc:"Bakso sapi dengan kuah kaldu dan mi bihun",emoji:"🍱"},
+    {name:"Pecel Lele",cat:"siang",cal:550,pro:30,carb:55,fat:22,desc:"Lele goreng dengan nasi dan sambal pecel",emoji:"🐟"},
+    {name:"Capcay Seafood",cat:"siang",cal:350,pro:26,carb:32,fat:12,desc:"Tumis sayuran dengan udang dan cumi",emoji:"🦐"},
+    {name:"Tumis Brokoli Ayam",cat:"malam",cal:340,pro:30,carb:18,fat:14,desc:"Brokoli dan ayam fillet tumis bawang putih",emoji:"🥦"},
+    {name:"Ikan Bakar Bumbu Kuning",cat:"malam",cal:360,pro:38,carb:12,fat:16,desc:"Ikan kembung bakar dengan bumbu kuning rempah",emoji:"🐟"},
+    {name:"Salad Tuna",cat:"malam",cal:260,pro:28,carb:12,fat:10,desc:"Salad romaine dengan tuna kaleng dan lemon dressing",emoji:"🥗"},
+    {name:"Sup Tom Yum Udang",cat:"malam",cal:250,pro:24,carb:15,fat:8,desc:"Sup tom yum pedas dengan udang segar",emoji:"🍲"},
+    {name:"Ayam Rebus Jahe",cat:"malam",cal:290,pro:34,carb:6,fat:10,desc:"Dada ayam rebus dengan jahe dan bawang putih",emoji:"🍗"},
+    {name:"Grilled Chicken Salad",cat:"malam",cal:280,pro:35,carb:10,fat:10,desc:"Dada ayam bakar dengan salad mix dan olive oil",emoji:"🥗"},
+    {name:"Kentang Panggang + Salmon",cat:"malam",cal:450,pro:36,carb:38,fat:14,desc:"Salmon panggang dengan kentang wedges dan lemon",emoji:"🐟"},
+    {name:"Nasi Merah + Telur Dadar",cat:"malam",cal:380,pro:16,carb:52,fat:12,desc:"Nasi merah dengan telur dadar sayuran",emoji:"🍚"},
+    {name:"Sayur Asem",cat:"malam",cal:180,pro:6,carb:28,fat:4,desc:"Sayur asem segar dengan jagung, kacang, dan melinjo",emoji:"🌽"},
+    {name:"Tumis Kangkung Belacan",cat:"malam",cal:160,pro:6,carb:14,fat:8,desc:"Kangkung tumis dengan belacan dan cabe",emoji:"🥬"},
+  ];
+
+  const exData = [
+    {id:1,name:"Jalan Santai",dur:30,int:"santai",desc:"Berjalan kaki dengan kecepatan normal di sekitar rumah atau taman.",cals:3.5,emoji:"🚶"},
+    {id:2,name:"Yoga Pagi",dur:45,int:"santai",desc:"Serangkaian gerakan yoga untuk fleksibilitas dan ketenangan pikiran.",cals:3,emoji:"🧘"},
+    {id:3,name:"Peregangan (Stretching)",dur:20,int:"santai",desc:"Gerakan peregangan seluruh tubuh untuk kelenturan otot.",cals:2.5,emoji:"🤸"},
+    {id:4,name:"Senam Lansia",dur:30,int:"santai",desc:"Senam ringan yang aman untuk semua usia.",cals:3.2,emoji:"💃"},
+    {id:5,name:"Jogging Ringan",dur:30,int:"ringan",desc:"Berlari kecil dengan kecepatan 6-7 km/jam.",cals:6,emoji:"🏃"},
+    {id:6,name:"Bersepeda Santai",dur:45,int:"ringan",desc:"Bersepeda dengan kecepatan 12-14 km/jam di jalan datar.",cals:5.5,emoji:"🚴"},
+    {id:7,name:"Renang Gaya Bebas",dur:30,int:"ringan",desc:"Berenang gaya bebas dengan kecepatan moderat.",cals:6.5,emoji:"🏊"},
+    {id:8,name:"Senam Aerobik",dur:40,int:"ringan",desc:"Senam aerobik berirama untuk meningkatkan detak jantung.",cals:5.8,emoji:"🎽"},
+    {id:9,name:"Lompat Tali",dur:20,int:"sedang",desc:"Jump rope dengan variasi single bounce dan double bounce.",cals:9,emoji:"🪢"},
+    {id:10,name:"HIIT 20 Menit",dur:20,int:"sedang",desc:"High Intensity Interval Training dengan interval 40:20.",cals:10,emoji:"⚡"},
+    {id:11,name:"Push-Up & Sit-Up",dur:30,int:"sedang",desc:"Latihan kalistenik dasar untuk kekuatan otot inti.",cals:7,emoji:"💪"},
+    {id:12,name:"Plank Challenge",dur:15,int:"sedang",desc:"Latihan plank berbagai variasi untuk kekuatan core.",cals:6.5,emoji:"🏋️"},
+    {id:13,name:"Zumba",dur:45,int:"sedang",desc:"Aerobik dance bergaya Latin yang menyenangkan.",cals:8,emoji:"🕺"},
+    {id:14,name:"Weight Training Pemula",dur:45,int:"sedang",desc:"Latihan beban dengan barbel dan dumbbell untuk pemula.",cals:6.8,emoji:"🏋️"},
+    {id:15,name:"CrossFit",dur:45,int:"berat",desc:"Latihan fungsional intensitas tinggi kombinasi cardio dan beban.",cals:12,emoji:"🔥"},
+    {id:16,name:"Sprint Interval",dur:25,int:"berat",desc:"Sprint 100m dengan recovery walk, 8-10 repetisi.",cals:11.5,emoji:"⚡"},
+    {id:17,name:"Boxing / Muay Thai",dur:60,int:"berat",desc:"Latihan tinju dan tendangan untuk kekuatan dan cardio.",cals:10.5,emoji:"🥊"},
+    {id:18,name:"Deadlift & Squat Heavy",dur:50,int:"berat",desc:"Latihan compound berat: deadlift, squat, bench press.",cals:9.5,emoji:"🏋️"},
+    {id:19,name:"Rock Climbing Indoor",dur:60,int:"berat",desc:"Panjat tebing indoor untuk kekuatan dan ketangkasan.",cals:9,emoji:"🧗"},
+    {id:20,name:"Triathlon Training",dur:90,int:"berat",desc:"Kombinasi renang, bersepeda, dan berlari jarak jauh.",cals:11,emoji:"🏆"},
+  ];
+
+  // ── Menu rendering ──
+  const MENU_INIT = 6, EX_INIT = 6;
+  let menuShowAll = false, exShowAll = false, menuCat = 'all', exInt = 'all';
+
+  function renderMenuGrid() {
+    const filtered = menuCat === 'all' ? menuData : menuData.filter(m => m.cat === menuCat);
+    const items = menuShowAll ? filtered : filtered.slice(0, MENU_INIT);
+    document.getElementById('menuGrid').innerHTML = items.map((m, i) => `
+      <div onclick="openMenuModal(${menuData.indexOf(m)})" style="background:#f4fafa;border:1px solid #e4f2f0;border-radius:16px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(0,150,136,0.14)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div style="width:100%;height:110px;background:linear-gradient(135deg,#e0f2f1,#b2dfdb);display:flex;align-items:center;justify-content:center;font-size:40px;">${m.emoji}</div>
+        <span style="position:absolute;top:8px;right:8px;background:rgba(0,150,136,0.9);color:#fff;border-radius:999px;padding:2px 8px;font-size:10px;font-weight:700;">${m.cat}</span>
+        <div style="padding:12px;">
+          <div style="font-size:13px;font-weight:700;color:#1a2b2a;margin-bottom:4px;line-height:1.3;">${m.name}</div>
+          <div style="font-size:11px;color:#4e6665;line-height:1.5;margin-bottom:8px;">${m.desc}</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;">
+            <span style="background:#fff3e0;color:#e65100;border-radius:999px;padding:2px 7px;font-size:10px;font-weight:700;">🔥 ${m.cal}</span>
+            <span style="background:#e8f5e9;color:#1b5e20;border-radius:999px;padding:2px 7px;font-size:10px;font-weight:700;">P ${m.pro}g</span>
+            <span style="background:#e3f2fd;color:#0d47a1;border-radius:999px;padding:2px 7px;font-size:10px;font-weight:700;">K ${m.carb}g</span>
+            <span style="background:#fce4ec;color:#880e4f;border-radius:999px;padding:2px 7px;font-size:10px;font-weight:700;">L ${m.fat}g</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    const btn = document.getElementById('menuShowMore');
+    btn.style.display = filtered.length > MENU_INIT ? 'inline-flex' : 'none';
+    btn.innerHTML = menuShowAll
+      ? '<span class="material-symbols-outlined" style="font-size:18px;">expand_less</span> Sembunyikan'
+      : '<span class="material-symbols-outlined" style="font-size:18px;">expand_more</span> Lihat Semua Menu';
+  }
+
+  function renderExGrid() {
+    const filtered = exInt === 'all' ? exData : exData.filter(e => e.int === exInt);
+    const items = exShowAll ? filtered : filtered.slice(0, EX_INIT);
+    const intColors = {santai:'#e8f5e9;color:#1b5e20',ringan:'#e3f2fd;color:#0d47a1',sedang:'#fff3e0;color:#e65100',berat:'#fce4ec;color:#880e4f'};
+    document.getElementById('exGrid').innerHTML = items.map(e => `
+      <div onclick="openExModal(${e.id-1})" style="background:rgba(255,255,255,0.85);border:1px solid rgba(255,255,255,0.9);border-radius:16px;padding:16px;cursor:pointer;display:flex;gap:12px;align-items:flex-start;box-shadow:0 4px 24px rgba(0,150,136,0.10);transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 32px rgba(0,150,136,0.14)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(0,150,136,0.10)'">
+        <div style="width:42px;height:42px;border-radius:12px;background:#e0f2f1;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">${e.emoji}</div>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;color:#1a2b2a;margin-bottom:3px;">${e.name}</div>
+          <div style="font-size:11px;color:#4e6665;line-height:1.5;margin-bottom:6px;">${e.desc}</div>
+          <div style="display:flex;gap:5px;flex-wrap:wrap;">
+            <span style="background:${intColors[e.int]};border-radius:999px;padding:2px 7px;font-size:10px;font-weight:700;">${e.int}</span>
+            <span style="background:#e0f2f1;color:#00796b;border-radius:999px;padding:2px 7px;font-size:10px;font-weight:700;">⏱ ${e.dur} mnt</span>
+            <span style="background:#f3e5f5;color:#4a148c;border-radius:999px;padding:2px 7px;font-size:10px;font-weight:700;">🔥 ${e.cals} kkal/mnt</span>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    const btn = document.getElementById('exShowMore');
+    btn.style.display = filtered.length > EX_INIT ? 'inline-flex' : 'none';
+    btn.innerHTML = exShowAll
+      ? '<span class="material-symbols-outlined" style="font-size:18px;">expand_less</span> Sembunyikan'
+      : '<span class="material-symbols-outlined" style="font-size:18px;">expand_more</span> Lihat Semua Olahraga';
+  }
+
+  document.getElementById('menuFilter').addEventListener('click', e => {
+    const btn = e.target.closest('[data-cat]'); if (!btn) return;
+    document.querySelectorAll('#menuFilter [data-cat]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); menuCat = btn.dataset.cat; menuShowAll = false; renderMenuGrid();
+  });
+  document.getElementById('exFilter').addEventListener('click', e => {
+    const btn = e.target.closest('[data-int]'); if (!btn) return;
+    document.querySelectorAll('#exFilter [data-int]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); exInt = btn.dataset.int; exShowAll = false; renderExGrid();
+  });
+  document.getElementById('menuShowMore').addEventListener('click', () => { menuShowAll = !menuShowAll; renderMenuGrid(); });
+  document.getElementById('exShowMore').addEventListener('click', () => { exShowAll = !exShowAll; renderExGrid(); });
+
+  function openMenuModal(idx) {
+    const m = menuData[idx];
+    document.getElementById('menuModalContent').innerHTML = `
+      <div style="font-size:48px;text-align:center;margin-bottom:12px;">${m.emoji}</div>
+      <div style="font-size:18px;font-weight:800;color:#1a2b2a;margin-bottom:6px;">${m.name}</div>
+      <span style="background:#e0f2f1;color:#00796b;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700;display:inline-block;margin-bottom:10px;">${m.cat}</span>
+      <p style="font-size:13px;color:#4e6665;line-height:1.6;margin-bottom:14px;">${m.desc}</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:#f4fafa;border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#e65100;">${m.cal}</div><div style="font-size:10px;color:#4e6665;font-weight:600;">KALORI (kkal)</div></div>
+        <div style="background:#f4fafa;border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#1b5e20;">${m.pro}g</div><div style="font-size:10px;color:#4e6665;font-weight:600;">PROTEIN</div></div>
+        <div style="background:#f4fafa;border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#0d47a1;">${m.carb}g</div><div style="font-size:10px;color:#4e6665;font-weight:600;">KARBOHIDRAT</div></div>
+        <div style="background:#f4fafa;border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#880e4f;">${m.fat}g</div><div style="font-size:10px;color:#4e6665;font-weight:600;">LEMAK</div></div>
+      </div>
+    `;
+    const modal = document.getElementById('menuModal');
+    modal.style.display = 'flex';
+    modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; }, {once:true});
+  }
+
+  function openExModal(idx) {
+    const e = exData[idx];
+    const total = Math.round(e.cals * e.dur);
+    document.getElementById('exModalContent').innerHTML = `
+      <div style="font-size:48px;text-align:center;margin-bottom:12px;">${e.emoji}</div>
+      <div style="font-size:18px;font-weight:800;color:#1a2b2a;margin-bottom:6px;">${e.name}</div>
+      <span style="background:#e0f2f1;color:#00796b;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700;display:inline-block;margin-bottom:10px;">${e.int}</span>
+      <p style="font-size:13px;color:#4e6665;line-height:1.6;margin-bottom:14px;">${e.desc}</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="background:#f4fafa;border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#009688;">${e.dur}</div><div style="font-size:10px;color:#4e6665;font-weight:600;">DURASI (mnt)</div></div>
+        <div style="background:#f4fafa;border-radius:10px;padding:10px;text-align:center;"><div style="font-size:20px;font-weight:800;color:#e65100;">${e.cals}</div><div style="font-size:10px;color:#4e6665;font-weight:600;">KKAL/MENIT</div></div>
+        <div style="background:#f4fafa;border-radius:10px;padding:10px;text-align:center;grid-column:span 2;"><div style="font-size:24px;font-weight:800;color:#009688;">~${total}</div><div style="font-size:10px;color:#4e6665;font-weight:600;">TOTAL KALORI TERBAKAR</div></div>
+      </div>
+    `;
+    const modal = document.getElementById('exModal');
+    modal.style.display = 'flex';
+    modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; }, {once:true});
+  }
+
+  // ── Smooth Scroll untuk Navigasi ──
+  document.querySelectorAll('.nav-links a').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      
+      // Khusus untuk Dashboard (belum ada halaman)
+      if (targetId === '#dashboard') {
+        e.preventDefault();
+        alert('Fitur Dashboard sedang dalam pengembangan. Silahkan coba lagi nanti! 🚀');
+        return;
+      }
+      
+      // Untuk link yang mengarah ke section yang ada
+      if (targetId && targetId !== '#') {
+        e.preventDefault();
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+          // Update active class
+          document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Smooth scroll
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }
+    });
+  });
+
+  // Optional: Update active class saat scroll (biar active state berubah otomatis)
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section[id]');
+    const scrollPosition = window.scrollY + 100;
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionBottom = sectionTop + section.offsetHeight;
+      const sectionId = section.getAttribute('id');
+      
+      if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+        document.querySelectorAll('.nav-links a').forEach(link => {
+          link.classList.remove('active');
+          // Abaikan dashboard link karena tidak punya section
+          if (link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  });
+
+  renderMenuGrid();
+  renderExGrid();
 </script>
 
 </body>
