@@ -85,6 +85,7 @@
     padding: 10px 22px; border-radius: var(--radius-pill);
     box-shadow: 0 2px 12px rgba(0,150,136,0.3);
     transition: opacity .2s, transform .15s;
+    text-decoration: none;
   }
   .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
 
@@ -129,6 +130,7 @@
     display: inline-flex; align-items: center; gap: 8px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     transition: transform .15s, box-shadow .15s;
+    text-decoration: none;
   }
   .btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,0.2); }
   .btn-hero-outline {
@@ -439,8 +441,8 @@
       <a href="#menu">Rekomendasi</a>
     </div>
     <div class="nav-actions">
-      <button class="btn-ghost">Masuk</button>
-      <button class="btn-primary">Daftar</button>
+      {{-- <button href="{{ route('login') }}" class="btn-ghost">Masuk</button> --}}
+      <a href="login" class="btn-primary">Masuk</a>
     </div>
   </div>
 </nav>
