@@ -71,11 +71,11 @@ Route::controller(UserProfileController::class)->group(function () {
 
 });
 
-Route::get('/menu', [FoodRecommendationController::class, 'index']);
+Route::get('/menu', [FoodRecommendationController::class, 'index'])->name('user.menu');
 
 Route::get('/olahraga', function () {
     return view('user.olahraga');
-});
+})->name('user.olahraga');
 
 // Admin Dashboard
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
