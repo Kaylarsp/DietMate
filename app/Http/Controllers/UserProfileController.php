@@ -85,9 +85,9 @@ class UserProfileController extends Controller
             'diet_goal' => $request->diet_goal
         ]);
 
-        Auth::login($user);
+        // Auth::login($user);
 
-        return redirect('/profile-dashboard');
+        return redirect('/login');
     }
 
     public function update(Request $request)
