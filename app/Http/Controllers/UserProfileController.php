@@ -15,11 +15,16 @@ class UserProfileController extends Controller
     {
         if (Auth::check()) {
             $profile = UserProfile::with('foodPreferences')->firstWhere('user_id', Auth::id());
-            
+
             $defaultPreferences = [
-                'Vegetarian', 'Vegan', 'Alergi Seafood', 'Gluten Free', 'Tidak Suka Pedas', 'Keto'
+                'Vegetarian',
+                'Vegan',
+                'Alergi Seafood',
+                'Gluten Free',
+                'Tidak Suka Pedas',
+                'Keto'
             ];
-            
+
             $userPrefs = $profile ? $profile->foodPreferences->pluck('preference_name')->toArray() : [];
 
             return view('user.profile-dashboard', compact('profile', 'defaultPreferences', 'userPrefs'));
@@ -34,10 +39,10 @@ class UserProfileController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'age' => 'required',
+            'age' => 'required|numeric',
             'gender' => 'required',
-            'height_cm' => 'required',
-            'weight_kg' => 'required',
+            'height_cm' => 'required|numeric',
+            'weight_kg' => 'required|numeric',
             'activity_level' => 'required',
             'diet_goal' => 'required'
         ]);
@@ -98,7 +103,8 @@ class UserProfileController extends Controller
             'height_cm' => 'required|numeric',
             'weight_kg' => 'required|numeric',
             'activity_level' => 'required',
-            'diet_goal' => 'required'
+            'diet_goal' => 'required',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg|max:2048' // Validasi upload gambar
         ]);
 
         $profile = UserProfile::firstWhere('user_id', Auth::id());
@@ -106,7 +112,7 @@ class UserProfileController extends Controller
         $heightMeter = $request->height_cm / 100;
         $bmi = $request->weight_kg / ($heightMeter * $heightMeter);
 
-        $bmr = ($request->gender == 'male') 
+        $bmr = ($request->gender == 'male')
             ? 88.36 + (13.4 * $request->weight_kg) + (4.8 * $request->height_cm) - (5.7 * $request->age)
             : 447.6 + (9.2 * $request->weight_kg) + (3.1 * $request->height_cm) - (4.3 * $request->age);
 
@@ -130,7 +136,7 @@ class UserProfileController extends Controller
             foreach ($request->preferences as $pref) {
                 $profile->foodPreferences()->create([
                     'preference_name' => $pref,
-                    'type' => 'preference' 
+                    'type' => 'preference'
                 ]);
             }
         }
@@ -139,7 +145,7 @@ class UserProfileController extends Controller
             $hasPreferences = true;
             $allergies = explode(',', $request->new_allergy);
             foreach ($allergies as $allergy) {
-                if(trim($allergy) !== '') {
+                if (trim($allergy) !== '') {
                     $profile->foodPreferences()->create([
                         'preference_name' => trim($allergy),
                         'type' => 'allergy'
@@ -148,7 +154,7 @@ class UserProfileController extends Controller
             }
         }
 
-        $profile->update([
+        $dataToUpdate = [
             'age' => $request->age,
             'gender' => $request->gender,
             'height_cm' => $request->height_cm,
@@ -157,9 +163,24 @@ class UserProfileController extends Controller
             'bmi' => round($bmi, 1),
             'daily_calorie_target' => round($dailyCalories),
             'diet_goal' => $request->diet_goal,
-            'has_food_preferences' => $hasPreferences 
-        ]);
+            'has_food_preferences' => $hasPreferences
+        ];
 
+        if ($request->hasFile('image_url')) {
+
+            $file = $request->file('image_url');
+
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            $result = $file->move(
+                public_path('img/user'),
+                $fileName
+            );
+
+            $dataToUpdate['image_url'] = 'img/user/' . $fileName;
+        }
+
+        $profile->update($dataToUpdate);
         return redirect()->back()->with('success', 'Data profil berhasil diperbarui!');
     }
 }

@@ -432,40 +432,49 @@
             </div>
         @endif
 
-        <div class="profile-header">
-            <div class="profile-img-container">
-                <img src="https://i.pravatar.cc/150?u={{ Auth::user()->email }}" class="profile-img"
-                    alt="Profile Picture">
-                <div class="edit-img-btn"><i class="bi bi-pencil-fill"></i></div>
-            </div>
-            <div>
-                <h2 class="fw-bold mb-1 fs-4">{{ Auth::user()->name }}</h2>
-                <p class="text-muted mb-2 fs-6">{{ Auth::user()->email }}</p>
-                <div class="d-flex gap-2">
-                    <span class="badge-custom badge-active"><i class="bi bi-check-circle-fill"></i> Member Aktif</span>
-                    <span class="badge-custom badge-target">
-                        Target:
-                        {{ match ($profile->diet_goal ?? '') {
-                            'loss' => 'Weight Loss',
-                            'maintain' => 'Maintain Weight',
-                            'gain' => 'Weight Gain',
-                            default => '-',
-                        } }}
-                    </span>
+        <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+
+            <div class="profile-header">
+                <div class="profile-img-container" onclick="document.getElementById('profile_image_input').click()">
+
+                    <img src="{{ $profile->image_url ? asset($profile->image_url) : 'https://i.pravatar.cc/150?u=' . Auth::user()->email }}"
+                        class="profile-img" id="preview_img" alt="Profile Picture">
+
+                    <div class="edit-img-btn"><i class="bi bi-pencil-fill"></i></div>
+
+                    {{-- INPUT FILE TERSEMBUNYI --}}
+                    <input type="file" id="profile_image_input" name="image_url" class="d-none" accept="image/*"
+                        onchange="previewImage(event)">
+                </div>
+
+                <div>
+                    <h2 class="fw-bold mb-1 fs-4">{{ Auth::user()->name }}</h2>
+                    <p class="text-muted mb-2 fs-6">{{ Auth::user()->email }}</p>
+                    <div class="d-flex gap-2">
+                        <span class="badge-custom badge-active"><i class="bi bi-check-circle-fill"></i> Member
+                            Aktif</span>
+                        <span class="badge-custom badge-target">
+                            Target:
+                            {{ match ($profile->diet_goal ?? '') {
+                                'loss' => 'Weight Loss',
+                                'maintain' => 'Maintain Weight',
+                                'gain' => 'Weight Gain',
+                                default => '-',
+                            } }}
+                        </span>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        {{-- GANTI ROUTE DI BAWAH INI JIKA NAMA ROUTENYA BERBEDA --}}
-        <form action="{{ route('profile.update') }}" method="POST">
-            @csrf
             <div class="row">
                 <div class="col-lg-8">
 
                     {{-- DATA TUBUH --}}
                     <div class="card-custom">
                         <div class="card-title-custom"><i class="bi bi-file-earmark-bar-graph text-primary"></i> Data
-                            Tubuh (DSS)</div>
+                            Tubuh
+                            (DSS)</div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Umur</label>
@@ -496,16 +505,19 @@
                                 <select class="form-select" name="activity_level" required>
                                     <option value="sedentary"
                                         {{ ($profile->activity_level ?? '') == 'sedentary' ? 'selected' : '' }}>
-                                        Sedenter (Sedikit/Tidak ada olahraga)</option>
+                                        Sedenter
+                                        (Sedikit/Tidak ada olahraga)</option>
                                     <option value="lightly_active"
                                         {{ ($profile->activity_level ?? '') == 'lightly_active' ? 'selected' : '' }}>
-                                        Ringan (Olahraga 1-3 hari/minggu)</option>
+                                        Ringan
+                                        (Olahraga 1-3 hari/minggu)</option>
                                     <option value="moderately_active"
                                         {{ ($profile->activity_level ?? '') == 'moderately_active' ? 'selected' : '' }}>
                                         Sedang (Olahraga 3-5 hari/minggu)</option>
                                     <option value="very_active"
                                         {{ ($profile->activity_level ?? '') == 'very_active' ? 'selected' : '' }}>
-                                        Sangat Aktif (Olahraga keras 6-7 hari/minggu)</option>
+                                        Sangat
+                                        Aktif (Olahraga keras 6-7 hari/minggu)</option>
                                 </select>
                             </div>
                         </div>
@@ -660,6 +672,16 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('preview_img');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+    </script>
 </body>
 
 </html>
