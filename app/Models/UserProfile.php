@@ -19,6 +19,7 @@ class UserProfile extends Model
         'bmi',
         'daily_calorie_target',
         'diet_goal',
+        'image_url',
         'has_food_preferences'
     ];
 
