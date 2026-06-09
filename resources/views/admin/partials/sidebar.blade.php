@@ -1,8 +1,3 @@
-{{-- ============================= --}}
-{{-- SIDENAVBAR (Left Sidebar, 256px) --}}
-{{-- Usage: @include('admin.partials.sidebar', ['activeRoute' => 'dashboard']) --}}
-{{-- activeRoute options: dashboard, menu, diet-plan, exercise, users --}}
-{{-- ============================= --}}
 <aside
     class="fixed top-0 left-0 w-[256px] h-screen bg-[#F3F3F4] border-r border-[#BCC9C6] z-50 flex flex-col justify-between"
     style="box-shadow: 0px 2px 4px -2px rgba(0,0,0,0.1), 0px 4px 6px -1px rgba(0,0,0,0.1);">
@@ -90,7 +85,14 @@
 
     {{-- Bottom Section: Logout --}}
     <div class="px-0 pb-4">
+        {{-- Form Logout (Tersembunyi) --}}
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
+            @csrf
+        </form>
+
+        {{-- Tombol Logout yang memicu form submit --}}
         <a href="#"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
             class="flex items-center gap-3 px-6 py-3 text-[#BA1A1A] hover:bg-[#fde8e8] transition-colors"
             style="font-size: 14px; line-height: 16px; letter-spacing: 5%; font-weight: 600;">
             <img src="{{ asset('images/admin/icon-logout.svg') }}" alt=""
