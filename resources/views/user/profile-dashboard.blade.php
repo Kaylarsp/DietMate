@@ -407,6 +407,16 @@
                 padding: 20px;
             }
 
+            .main-content {
+                margin-left: 260px;
+                padding: 40px 50px;
+                background: linear-gradient(to bottom,
+                        #DDF0EC 5%,
+                        #E8F4F1 50%,
+                        #F8FAFC 100%);
+                min-height: 100vh;
+            }
+
             .target-diet-options {
                 grid-template-columns: 1fr;
             }

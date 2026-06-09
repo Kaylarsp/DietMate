@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,27 +19,96 @@
             --text-main: #333333;
         }
 
-        * { font-family: 'Inter', sans-serif; }
-        body { background: var(--bg-color); color: var(--text-main); overflow-x: hidden; }
+        * {
+            font-family: 'Inter', sans-serif;
+        }
 
-        .sidebar { width: 260px; min-height: 100vh; background: white; border-right: 1px solid #edf2f7; position: fixed; padding: 30px 20px; display: flex; flex-direction: column; justify-content: space-between; }
-        .logo { font-size: 22px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; }
-        .logo i { background: var(--primary-light); padding: 5px 8px; border-radius: 8px; font-size: 18px; }
-        .menu-item { padding: 12px 16px; border-radius: 10px; color: #64748b; text-decoration: none; display: flex; align-items: center; gap: 14px; margin-bottom: 8px; font-size: 14px; font-weight: 500; transition: all 0.3s ease; }
-        .menu-item:hover { background: #f1f5f9; color: var(--primary); }
-        .menu-active { background: var(--primary-light) !important; color: var(--primary) !important; font-weight: 600; }
-        .logout-btn { margin-top: auto; color: #ef4444; }
-        .logout-btn:hover { background: #fee2e2; color: #dc2626; }
+        body {
+            background: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            width: 260px;
+            min-height: 100vh;
+            background: white;
+            border-right: 1px solid #edf2f7;
+            position: fixed;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            background: var(--primary-light);
+            padding: 5px 8px;
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        .menu-item {
+            padding: 12px 16px;
+            border-radius: 10px;
+            color: #64748b;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: #f1f5f9;
+            color: var(--primary);
+        }
+
+        .menu-active {
+            background: var(--primary-light) !important;
+            color: var(--primary) !important;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            color: #ef4444;
+        }
+
+        .logout-btn:hover {
+            background: #fee2e2;
+            color: #dc2626;
+        }
 
         /* --- MAIN CONTENT --- */
-        .main-content { margin-left: 260px; padding: 40px 50px; }
+        .main-content {
+            margin-left: 260px;
+            padding: 40px 50px;
+            background: linear-gradient(to bottom,
+                    #DDF0EC 5%,
+                    #E8F4F1 50%,
+                    #F8FAFC 100%);
+            min-height: 100vh;
+        }
 
         .metric-card-custom {
             background: white;
             border: none;
             border-radius: 16px;
             padding: 24px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
             position: relative;
             height: 100%;
             border: 1px solid #f1f5f9;
@@ -51,7 +121,7 @@
             top: 15px;
             bottom: 15px;
             width: 5px;
-            background: var(--primary); 
+            background: var(--primary);
             border-radius: 0 4px 4px 0;
         }
 
@@ -66,7 +136,7 @@
             border: none;
             border-radius: 16px;
             padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
             height: 100%;
             border: 1px solid #f1f5f9;
         }
@@ -83,7 +153,9 @@
             color: #64748b;
         }
 
-        .tips-list li { margin-bottom: 12px; }
+        .tips-list li {
+            margin-bottom: 12px;
+        }
 
         footer {
             margin-top: 60px;
@@ -94,13 +166,14 @@
         }
     </style>
 </head>
+
 <body>
 
     @include('layouts.sidebar')
 
     {{-- KONTEN UTAMA DASHBOARD --}}
     <div class="main-content">
-        
+
         <div class="d-flex justify-content-between align-items-center mb-5">
             <div>
                 {{-- Mengambil Kata Pertama dari Nama User --}}
@@ -108,11 +181,6 @@
                     Halo, {{ explode(' ', $user->name)[0] }} 👋
                 </h1>
                 <p class="text-muted mt-1 m-0">Selamat datang kembali di aktivitas dietmu!</p>
-            </div>
-            <div>
-                <button class="btn bg-white rounded-circle p-2 shadow-sm border border-0 position-relative">
-                    <i class="bi bi-bell fs-4 text-dark"></i>
-                </button>
             </div>
         </div>
 
@@ -125,7 +193,8 @@
                     </div>
                     <div class="d-flex align-items-baseline gap-2">
                         <span class="metric-number-big">{{ $profile->bmi ?? '0' }}</span>
-                        <span class="badge {{ $bmiBadge }} rounded-pill px-2 py-1" style="font-size: 11px; font-weight: 600;">
+                        <span class="badge {{ $bmiBadge }} rounded-pill px-2 py-1"
+                            style="font-size: 11px; font-weight: 600;">
                             {{ $bmiCategory }}
                         </span>
                     </div>
@@ -138,7 +207,8 @@
                         <i class="bi bi-fire text-danger"></i> Kebutuhan Kalori
                     </div>
                     <div class="d-flex align-items-baseline gap-2">
-                        <span class="metric-number-big">{{ number_format($profile->daily_calorie_target ?? 0, 0, ',', '.') }}</span>
+                        <span
+                            class="metric-number-big">{{ number_format($profile->daily_calorie_target ?? 0, 0, ',', '.') }}</span>
                         <span class="text-muted small font-medium">kkal</span>
                     </div>
                 </div>
@@ -163,7 +233,8 @@
                 {{-- Data peringkat diet ini sebaiknya di-looping dari database, namun di-hardcode sementara sesuai UI --}}
                 <div class="col-md-4">
                     <div class="dashboard-card-info">
-                        <span class="badge bg-success-subtle text-success rounded-pill mb-3 px-2 py-1" style="font-size: 11px; font-weight: 600;">Peringkat 1</span>
+                        <span class="badge bg-success-subtle text-success rounded-pill mb-3 px-2 py-1"
+                            style="font-size: 11px; font-weight: 600;">Peringkat 1</span>
                         <h5 class="fw-bold text-dark mb-4">Diet Mediterania</h5>
                         <div class="d-flex justify-content-between small text-muted mb-1 font-medium">
                             <span>Skor Kecocokan</span>
@@ -177,7 +248,8 @@
 
                 <div class="col-md-4">
                     <div class="dashboard-card-info">
-                        <span class="badge bg-secondary-subtle text-secondary rounded-pill mb-3 px-2 py-1" style="font-size: 11px; font-weight: 600;">Peringkat 2</span>
+                        <span class="badge bg-secondary-subtle text-secondary rounded-pill mb-3 px-2 py-1"
+                            style="font-size: 11px; font-weight: 600;">Peringkat 2</span>
                         <h5 class="fw-bold text-dark mb-4">Diet DASH</h5>
                         <div class="d-flex justify-content-between small text-muted mb-1 font-medium">
                             <span>Skor Kecocokan</span>
@@ -191,7 +263,8 @@
 
                 <div class="col-md-4">
                     <div class="dashboard-card-info">
-                        <span class="badge bg-warning-subtle text-warning rounded-pill mb-3 px-2 py-1" style="font-size: 11px; font-weight: 600;">Peringkat 3</span>
+                        <span class="badge bg-warning-subtle text-warning rounded-pill mb-3 px-2 py-1"
+                            style="font-size: 11px; font-weight: 600;">Peringkat 3</span>
                         <h5 class="fw-bold text-dark mb-4">Diet Fleksitarian</h5>
                         <div class="d-flex justify-content-between small text-muted mb-1 font-medium">
                             <span>Skor Kecocokan</span>
@@ -209,16 +282,18 @@
         <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h4 class="fw-bold text-dark m-0" style="font-size: 22px;">Rencana Menu Harian</h4>
-                <a href="menu" class="text-success fw-semibold small text-decoration-none hover:underline">Lihat Detail Rencana</a>
+                <a href="menu" class="text-success fw-semibold small text-decoration-none hover:underline">Lihat
+                    Detail Rencana</a>
             </div>
-            
+
             <div class="row g-4">
                 {{-- SARAPAN --}}
                 <div class="col-md-4">
                     <div class="metric-card-custom">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted small font-medium">Sarapan • 08:00</span>
-                            <span class="badge bg-light text-dark border rounded-pill px-2 py-1" style="font-size: 11px;">
+                            <span class="badge bg-light text-dark border rounded-pill px-2 py-1"
+                                style="font-size: 11px;">
                                 {{ $sarapan->calories ?? 0 }} kkal
                             </span>
                         </div>
@@ -234,7 +309,8 @@
                     <div class="metric-card-custom">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted small font-medium">Makan Siang • 13:00</span>
-                            <span class="badge bg-light text-dark border rounded-pill px-2 py-1" style="font-size: 11px;">
+                            <span class="badge bg-light text-dark border rounded-pill px-2 py-1"
+                                style="font-size: 11px;">
                                 {{ $makanSiang->calories ?? 0 }} kkal
                             </span>
                         </div>
@@ -250,7 +326,8 @@
                     <div class="metric-card-custom">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <span class="text-muted small font-medium">Makan Malam • 19:00</span>
-                            <span class="badge bg-light text-dark border rounded-pill px-2 py-1" style="font-size: 11px;">
+                            <span class="badge bg-light text-dark border rounded-pill px-2 py-1"
+                                style="font-size: 11px;">
                                 {{ $makanMalam->calories ?? 0 }} kkal
                             </span>
                         </div>
@@ -268,7 +345,8 @@
             <h4 class="fw-bold text-dark mb-4" style="font-size: 22px;">Rekomendasi Olahraga</h4>
             <div class="card border-0 rounded-4 p-4 shadow-sm bg-white" style="border: 1px solid #f1f5f9 !important;">
                 <div class="d-flex align-items-center gap-4">
-                    <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; min-width: 52px;">
+                    <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center"
+                        style="width: 52px; height: 52px; min-width: 52px;">
                         <i class="bi bi-person-walking fs-4"></i>
                     </div>
                     <div>
@@ -276,7 +354,8 @@
                             {{ ($profile->activity_level ?? '') == 'sedentary' ? 'Jalan Santai' : 'Olahraga Kardio / Beban' }}
                         </h5>
                         <p class="text-muted small mb-0">
-                            Berdasarkan profil Anda, kami sarankan aktivitas fisik setidaknya 30 menit per hari untuk mendukung diet <strong>{!! str_replace('<br>', ' ', $dietGoalLabel) !!}</strong>.
+                            Berdasarkan profil Anda, kami sarankan aktivitas fisik setidaknya 30 menit per hari untuk
+                            mendukung diet <strong>{!! str_replace('<br>', ' ', $dietGoalLabel) !!}</strong>.
                         </p>
                     </div>
                 </div>
@@ -305,4 +384,5 @@
     {{-- Bootstrap JS Bundle --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
