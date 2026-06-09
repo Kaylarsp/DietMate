@@ -6,36 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Workout;
 use App\Models\HealthMetric;
-<<<<<<< Updated upstream
-=======
 use App\Models\UserProfile;
 use App\Models\UserDietPlan;
->>>>>>> Stashed changes
 
 class WorkoutRecommendationController extends Controller
 {
     public function index()
     {
-<<<<<<< Updated upstream
-        $user = Auth::user();
-        $profile = $user->profile; // Asumsi ada relasi hasOne di model User
-
-        // 1. Ambil rekomendasi olahraga (bisa di-limit atau disesuaikan dengan activity_level)
-        // Di sini kita ambil semua data dari tabel 'workouts'
-        $workouts = Workout::all();
-
-        // 2. Kalkulasi Insight Kesehatan dari tabel 'health_metrics'
-        // Menghitung total kalori terbakar 7 hari terakhir
-        $weeklyCaloriesBurned = HealthMetric::query()->where('user_id', $user->id)
-            ->where('recorded_date', '>=', now()->subDays(7))
-            ->sum('calories_burned');
-
-        $todayMetric = HealthMetric::query()->where('user_id', $user->id)
-            ->whereDate('recorded_date', today())
-            ->first();
-
-        $todaySteps = $todayMetric ? $todayMetric->steps_count : 0;
-=======
         // Cek apakah user login atau tidak
         $isLoggedIn = Auth::check();
         
@@ -139,19 +116,12 @@ class WorkoutRecommendationController extends Controller
             'Rock Climbing Indoor' => 'Panjat tebing untuk kekuatan, ketangkasan, dan mental.',
             'Triathlon Training' => 'Kombinasi renang, bersepeda, dan lari untuk endurance maksimal.'
         ];
->>>>>>> Stashed changes
 
         return view('user.olahraga', compact(
             'user',
             'profile',
             'workouts',
             'weeklyCaloriesBurned',
-<<<<<<< Updated upstream
-            'todaySteps'
-        ));
-    }
-}
-=======
             'todaySteps',
             'bmi',
             'bmiCategory',
@@ -379,4 +349,3 @@ class WorkoutRecommendationController extends Controller
         }
     }
 }
->>>>>>> Stashed changes

@@ -34,9 +34,9 @@ Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-// Halaman register (agar link "Daftar Sekarang" tidak error)
+// Halaman register - arahkan ke profile register
 Route::get('/register', function () {
-    return view('auth.register');
+    return redirect()->route('profile-register');
 })->middleware('guest')->name('register');
 
 // Lupa password (agar link "Lupa Password" tidak error)

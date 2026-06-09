@@ -13,6 +13,13 @@ class DashboardController extends Controller
     {
         // 1. Ambil data User yang sedang login & Profilenya
         $user = Auth::user();
+
+        // JIKA USER BELUM LOGIN, ARAHKAN KE HALAMAN LOGIN
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu untuk mengakses dashboard.');
+        }
+
+        // Jika sudah login, lanjut ambil profilenya
         $profile = UserProfile::firstWhere('user_id', $user->id);
 
         // 2. Logika Penentuan Kategori BMI

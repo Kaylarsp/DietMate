@@ -434,12 +434,12 @@
       <img src="{{ asset('img/logo.png') }}" alt="DietMate" style="height:34px; width:auto;">
       <span class="nav-brand-name">DietMate</span>
     </a>
-    <div class="nav-links">
-      <a href="#home" class="active">Beranda</a>
-      <a href="#diet">Program Diet</a>
-      <a href="#dashboard" id="dashboardLink">Dashboard</a>
-      <a href="#menu">Rekomendasi</a>
-    </div>
+  <div class="nav-links">
+  <a href="#home" class="active">Beranda</a>
+  <a href="#diet">Program Diet</a>
+  <a href="{{ route('dashboard') }}" id="dashboardLink">Dashboard</a>
+  <a href="#menu">Rekomendasi</a>
+</div>
     <div class="nav-actions">
       {{-- <button href="{{ route('login') }}" class="btn-ghost">Masuk</button> --}}
       <a href="login" class="btn-primary">Masuk</a>
@@ -460,13 +460,13 @@
     </div>
     <h1 class="hero-title">Temukan program diet yang cocok untuk tubuh dan tujuanmu</h1>
     <p class="hero-desc">Raih target diet Anda dengan rekomendasi menu harian yang dipersonalisasi. Sistem kami menggunakan algoritma cerdas berdasarkan kebutuhan kalori, BMI, dan preferensi makanan Anda.</p>
-    <div class="hero-cta">
-      <a href="{{ route('profile-register') }}" class="btn-hero-primary">
-        Mulai Diet Sekarang
-       <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 0;">arrow_forward</span>
-      </a>
-      <button class="btn-hero-outline">Lihat Fitur</button>
-    </div> 
+<div class="hero-cta">
+  <a href="{{ route('profile-register') }}" class="btn-hero-primary">
+    Mulai Diet Sekarang
+   <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 0;">arrow_forward</span>
+  </a>
+  <a href="#features" class="btn-hero-outline" style="text-decoration: none;">Lihat Fitur</a>
+</div>
   </div>
 </section>
 
@@ -753,7 +753,7 @@
 </div>
 
 <!-- FEATURES BENTO -->
-<section class="features-section">
+<section id="features" class="features-section">
   <div class="section-inner">
     <div class="features-header">
       <div class="section-tag"><span class="material-symbols-outlined" style="font-size:14px;">auto_awesome</span> Fitur</div>
@@ -1071,37 +1071,35 @@
     modal.addEventListener('click', e => { if (e.target === modal) modal.style.display = 'none'; }, {once:true});
   }
 
-  // ── Smooth Scroll untuk Navigasi ──
-  document.querySelectorAll('.nav-links a').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      const targetId = this.getAttribute('href');
+  // Smooth Scroll untuk Navigasi (kecuali untuk link yang bukan anchor)
+document.querySelectorAll('.nav-links a').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const href = this.getAttribute('href');
+    
+    // Jika link mengarah ke route (bukan anchor #), biarkan berjalan normal
+    if (href && !href.startsWith('#')) {
+      return; // Biarkan link berjalan normal (ke route dashboard atau lainnya)
+    }
+    
+    // Untuk anchor link (yang pake #)
+    if (href && href !== '#') {
+      e.preventDefault();
+      const targetElement = document.querySelector(href);
       
-      // Khusus untuk Dashboard (belum ada halaman)
-      if (targetId === '#dashboard') {
-        e.preventDefault();
-        alert('Fitur Dashboard sedang dalam pengembangan. Silahkan coba lagi nanti! 🚀');
-        return;
-      }
-      
-      // Untuk link yang mengarah ke section yang ada
-      if (targetId && targetId !== '#') {
-        e.preventDefault();
-        const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        // Update active class
+        document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+        this.classList.add('active');
         
-        if (targetElement) {
-          // Update active class
-          document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-          this.classList.add('active');
-          
-          // Smooth scroll
-          targetElement.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
+        // Smooth scroll
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
       }
-    });
+    }
   });
+});
 
   // Optional: Update active class saat scroll (biar active state berubah otomatis)
   window.addEventListener('scroll', () => {
