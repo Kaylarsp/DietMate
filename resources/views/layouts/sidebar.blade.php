@@ -1,6 +1,6 @@
 <div class="sidebar">
     <div>
-        <a href="#" class="logo mb-5 text-decoration-none"
+        <a href="{{ route('dashboard') }}" class="logo mb-5 text-decoration-none"
             style="display: flex; align-items: center; gap: 7px; color: var(--primary);">
             <img src="{{ asset('img/logo.png') }}" alt="DietMate" style="height:34px; width:auto;">
             <span>DietMate</span>
