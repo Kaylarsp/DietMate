@@ -872,7 +872,7 @@
           shown++;
           card.style.display = shown <= 6 ? 'flex' : 'none';
           card.dataset.hidden = shown > 6 ? 'true' : 'false';
-        } else {
+        } else {caches
           card.style.display = 'none';
           card.dataset.hidden = 'true';
         }
