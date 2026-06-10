@@ -437,7 +437,7 @@
   <div class="nav-links">
   <a href="#home" class="active">Beranda</a>
   <a href="#diet">Program Diet</a>
-  <a href="{{ route('dashboard') }}" id="dashboardLink">Dashboard</a>
+  {{-- <a href="{{ route('dashboard') }}" id="dashboardLink">Dashboard</a> --}}
   <a href="#menu">Rekomendasi</a>
 </div>
     <div class="nav-actions">
