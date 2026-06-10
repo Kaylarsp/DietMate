@@ -34,11 +34,6 @@ Route::middleware('guest')->group(function () {
         return redirect()->route('profile-register');
     })->name('register');
 
-    // Lupa password
-    Route::get('/forgot-password', function () {
-        return view('auth.forgot-password');
-    })->name('password.request');
-
     // OAuth (Belum dikonfigurasi)
     Route::get('/login/google', function () {
         abort(501, 'Google login belum dikonfigurasi.');

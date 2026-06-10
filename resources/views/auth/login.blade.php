@@ -218,11 +218,6 @@
                         >
                         <span class="font-body-sm text-body-sm text-on-surface-variant group-hover:text-on-background">Ingat Saya</span>
                     </label>
-                    @if (Route::has('password.request'))
-                        <a class="font-label-lg text-label-lg text-primary hover:underline" href="{{ route('password.request') }}">
-                            Lupa Password
-                        </a>
-                    @endif
                 </div>
 
                 <!-- Submit Button -->
