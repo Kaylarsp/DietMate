@@ -407,7 +407,7 @@
 
         {{-- SUMMARY --}}
         <div class="row mt-5 g-4">
-            <div class="col-lg-4">
+            <div class="col-md-6 col-lg-6">
                 <div class="summary-card summary-green">
                     <p class="mb-2">Total Kalori Menu</p>
                     <div class="big-number">
@@ -421,31 +421,18 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-md-6 col-lg-6">
                 <div class="summary-card summary-white">
                     <h5 class="mb-1 text-dark fw-bold">Hidrasi</h5>
                     <div class="d-flex align-items-center gap-3 my-3">
                         <i class="bi bi-droplet-fill fs-1 text-primary"></i>
                         <div class="big-number text-primary" style="font-size:36px;">
-                            0/8 <span style="font-size: 16px; color:#64748b;">Gelas</span>
+                            8 <span style="font-size: 16px; color:#64748b;">Gelas</span>
                         </div>
                     </div>
-                    <div class="progress">
-                        <div class="progress-bar bg-primary" style="width:0%"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <div class="summary-card summary-soft">
-                    <h5 class="mb-2 text-dark fw-bold">Rekomendasi Camilan</h5>
-                    <p class="text-muted" style="font-size: 14px;">
-                        Almond atau apel potong untuk menjaga metabolisme.
+                    <p class="text-muted" style="font-size: 14px; margin-bottom: 0;">
+                        Minum air putih secara teratur untuk mendukung metabolisme dan pencernaan.
                     </p>
-                    <div class="d-flex flex-wrap gap-2 mt-3">
-                        <span class="badge bg-white text-dark border">Protein Tinggi</span>
-                        <span class="badge bg-white text-dark border">Rendah Gula</span>
-                    </div>
                 </div>
             </div>
         </div>
