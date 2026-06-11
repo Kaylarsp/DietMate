@@ -805,27 +805,27 @@
       <div class="why-text">
         <div class="section-tag"><span class="material-symbols-outlined" style="font-size:14px;">health_and_safety</span> Tentang Kami</div>
         <h2 class="section-title">Keunggulan DietMate</h2>
-        <p class="section-subtitle">DietMate menjembatani kesenjangan penting antara keandalan nutrisi klinis dan dorongan harian yang personal.</p>
+        <p class="section-subtitle">DietMate membantu Anda menjalani program diet secara personal dengan pendekatan ilmiah dan teknologi database modern.</p>
         <div class="why-list">
           <div class="why-item">
             <div class="why-icon"><span class="material-symbols-outlined">verified</span></div>
             <div>
-              <div class="why-item-title">Nutrisi yang Didukung Ahli</div>
-              <div class="why-item-desc">Algoritma dikembangkan bersama ahli gizi bersertifikat untuk hasil yang terpercaya.</div>
+              <div class="why-item-title">Perhitungan Ilmiah & Akurat</div>
+              <div class="why-item-desc">Menghitung BMI, BMR, dan kebutuhan kalori harian menggunakan rumus Mifflin-St Jeor yang teruji secara klinis.</div>
             </div>
           </div>
           <div class="why-item">
             <div class="why-icon"><span class="material-symbols-outlined">shield</span></div>
             <div>
-              <div class="why-item-title">Pendekatan Mengutamakan Privasi</div>
-              <div class="why-item-desc">Metrik kesehatan Anda dienkripsi dengan aman dan tidak pernah dibagikan.</div>
+              <div class="why-item-title">Otomatisasi dengan Database Trigger</div>
+              <div class="why-item-desc">BMI terhitung otomatis, validasi data kesehatan, dan sinkronisasi berat badan</div>
             </div>
           </div>
           <div class="why-item">
             <div class="why-icon"><span class="material-symbols-outlined">support_agent</span></div>
             <div>
-              <div class="why-item-title">Dukungan Berkelanjutan</div>
-              <div class="why-item-desc">Akses 24/7 ke sumber daya pendidikan dan rekomendasi adaptif berbasis AI.</div>
+              <div class="why-item-title">Rekomendasi Lengkap & Variatif</div>
+              <div class="why-item-desc">28 menu makanan (sarapan, siang, malam) dan 20 olahraga dengan filter intensitas dan informasi nutrisi lengkap.</div>
             </div>
           </div>
         </div>
