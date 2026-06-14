@@ -34,16 +34,21 @@
             overflow-x: hidden;
         }
 
+        /* ========== SIDEBAR ========== */
         .sidebar {
             width: 260px;
             min-height: 100vh;
             background: white;
             border-right: 1px solid #edf2f7;
             position: fixed;
+            top: 0;
+            left: 0;
             padding: 30px 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            z-index: 1000;
+            transition: transform 0.3s ease;
         }
 
         .logo {
@@ -91,20 +96,27 @@
             margin-top: auto;
         }
 
+        /* ========== MAIN CONTENT ========== */
         .main-content {
             margin-left: 260px;
             padding: 40px 50px;
+            background: linear-gradient(to bottom, #DDF0EC 5%, #E8F4F1 50%, #F8FAFC 100%);
+            min-height: 100vh;
         }
 
+        /* ========== PROFILE HEADER ========== */
         .profile-header {
             display: flex;
             align-items: center;
             gap: 25px;
             margin-bottom: 40px;
+            flex-wrap: wrap;
         }
 
         .profile-img-container {
             position: relative;
+            flex-shrink: 0;
+            cursor: pointer;
         }
 
         .profile-img {
@@ -113,7 +125,12 @@
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid white;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.2s;
+        }
+
+        .profile-img-container:hover .profile-img {
+            opacity: 0.85;
         }
 
         .edit-img-btn {
@@ -131,6 +148,7 @@
             border: 2px solid white;
             cursor: pointer;
             font-size: 12px;
+            box-shadow: 0 2px 6px rgba(11,122,109,0.3);
         }
 
         .badge-custom {
@@ -153,49 +171,62 @@
             color: #b54708;
         }
 
+        /* ========== CARDS ========== */
         .card-custom {
             background: white;
             border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
-            margin-bottom: 25px;
+            padding: 28px;
+            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.04);
+            margin-bottom: 24px;
             border: 1px solid #f1f5f9;
+            transition: box-shadow 0.2s;
+        }
+
+        .card-custom:hover {
+            box-shadow: 0 4px 24px rgba(11,122,109,0.08);
         }
 
         .card-title-custom {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
+            color: #1e293b;
         }
 
+        /* ========== FORM CONTROLS ========== */
         .form-label {
             font-size: 13px;
             color: #64748b;
             margin-bottom: 6px;
+            font-weight: 500;
         }
 
         .form-control,
         .form-select {
-            border: 1px solid #e2e8f0;
+            border: 1.5px solid #e2e8f0;
             border-radius: 10px;
             padding: 10px 15px;
             font-size: 14px;
             color: #334155;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background-color: #fafbfc;
         }
 
         .form-control:focus,
         .form-select:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 0.2rem rgba(11, 122, 109, 0.15);
+            box-shadow: 0 0 0 3px rgba(11, 122, 109, 0.12);
+            background-color: white;
         }
 
+        /* ========== TARGET DIET CARDS ========== */
         .target-diet-options {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+            gap: 14px;
         }
 
         .target-card-input {
@@ -204,23 +235,28 @@
 
         .target-card-label {
             display: block;
-            border: 1px solid #e2e8f0;
+            border: 1.5px solid #e2e8f0;
             border-radius: 12px;
             padding: 20px 15px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             background: #f8fafc;
             height: 100%;
         }
 
-        .target-card-input:checked+.target-card-label {
+        .target-card-label:hover {
+            border-color: #a7d4cf;
+            background: #f0faf9;
+        }
+
+        .target-card-input:checked + .target-card-label {
             border-color: var(--primary);
             background: var(--primary-light);
-            box-shadow: 0 4px 10px rgba(11, 122, 109, 0.1);
+            box-shadow: 0 4px 12px rgba(11, 122, 109, 0.15);
         }
 
         .target-icon {
-            font-size: 20px;
+            font-size: 22px;
             color: var(--primary);
             margin-bottom: 10px;
         }
@@ -235,9 +271,10 @@
         .target-desc {
             font-size: 12px;
             color: #64748b;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
+        /* ========== PREF TAGS ========== */
         .pref-tags {
             display: flex;
             flex-wrap: wrap;
@@ -249,73 +286,87 @@
             padding: 8px 16px;
             border-radius: 50px;
             font-size: 13px;
-            border: 1px solid #e2e8f0;
+            border: 1.5px solid #e2e8f0;
             background: white;
             color: #64748b;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: 0.2s;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .pref-tag:hover {
+            border-color: #a7d4cf;
+            color: var(--primary);
         }
 
         .pref-checkbox {
             display: none;
         }
 
-        .pref-checkbox+.pref-tag .bi-x {
+        .pref-checkbox + .pref-tag .bi-x {
             display: none;
         }
 
-        .pref-checkbox:checked+.pref-tag {
+        .pref-checkbox:checked + .pref-tag {
             background: var(--primary-light);
-            border-color: var(--primary-light);
+            border-color: var(--primary);
             color: var(--primary);
             font-weight: 500;
         }
 
-        .pref-checkbox:checked+.pref-tag .bi-x {
+        .pref-checkbox:checked + .pref-tag .bi-x {
             display: inline-block;
         }
 
+        /* ========== ALLERGY BOX ========== */
         .add-allergy-box {
             background: #f8fafc;
             border-radius: 12px;
-            padding: 20px;
+            padding: 18px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
+            border: 1px dashed #cbd5e1;
         }
 
+        /* ========== METRICS ========== */
         .metrics-container {
-            background: var(--primary-light);
+            background: linear-gradient(135deg, #c8e8e3 0%, #ddf0ec 100%);
             border-radius: 20px;
             padding: 25px;
+            position: sticky;
+            top: 20px;
         }
 
         .metrics-header {
-            font-size: 12px;
-            font-weight: 600;
-            color: #5c7b77;
+            font-size: 11px;
+            font-weight: 700;
+            color: #4a7a74;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 15px;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
         }
 
         .metric-box {
             background: white;
             border-radius: 16px;
-            padding: 25px 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            padding: 22px 20px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             text-align: center;
         }
 
         .metric-title {
-            font-size: 13px;
+            font-size: 12px;
             color: #64748b;
             margin-bottom: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .metric-value {
@@ -330,28 +381,30 @@
         }
 
         .metric-unit {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: #94a3b8;
         }
 
         .bmi-bar {
-            height: 6px;
+            height: 7px;
             border-radius: 10px;
             background: linear-gradient(90deg, #3b82f6 0%, #10b981 50%, #f59e0b 80%, #ef4444 100%);
-            margin: 15px 0;
+            margin: 14px 0;
             position: relative;
         }
 
         .bmi-indicator {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             background: white;
-            border: 2px solid var(--text-main);
+            border: 2.5px solid #1e293b;
             border-radius: 50%;
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            transition: left 0.5s ease;
         }
 
         .metric-desc {
@@ -363,6 +416,7 @@
             color: var(--primary);
         }
 
+        /* ========== BUTTONS ========== */
         .btn-main {
             background: var(--primary);
             border: none;
@@ -371,20 +425,35 @@
             border-radius: 10px;
             font-weight: 600;
             font-size: 14px;
-            transition: 0.3s;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(11,122,109,0.25);
         }
 
         .btn-main:hover {
             background: #08695e;
             color: white;
+            box-shadow: 0 6px 16px rgba(11,122,109,0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-main:active {
+            transform: translateY(0);
         }
 
         .btn-outline {
             background: transparent;
-            border: 1px solid transparent;
+            border: 1.5px solid #e2e8f0;
             color: #64748b;
             font-weight: 600;
             font-size: 14px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-outline:hover {
+            border-color: #cbd5e1;
+            background: #f1f5f9;
         }
 
         .form-actions {
@@ -394,42 +463,170 @@
             margin-top: 20px;
         }
 
-        @media (max-width: 992px) {
+        /* ========== MOBILE TOGGLE (HAMBURGER) ========== */
+        .sidebar-toggle {
+            display: none;
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 1100;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            width: 42px;
+            height: 42px;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.35);
+            z-index: 999;
+        }
+
+        /* ========== RESPONSIVE BREAKPOINTS ========== */
+
+        /* Tablet: 768px – 991px */
+        @media (max-width: 991px) {
             .sidebar {
-                width: 100%;
-                position: relative;
-                min-height: auto;
-                padding: 20px;
+                transform: translateX(-100%);
+                width: 260px;
+                box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay.open {
+                display: block;
+            }
+
+            .sidebar-toggle {
+                display: flex;
             }
 
             .main-content {
                 margin-left: 0;
-                padding: 20px;
+                padding: 70px 24px 40px;
             }
 
+            .metrics-container {
+                position: static;
+            }
+
+            .target-diet-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Mobile: ≤ 767px */
+        @media (max-width: 767px) {
             .main-content {
-                margin-left: 260px;
-                padding: 40px 50px;
-                background: linear-gradient(to bottom,
-                        #DDF0EC 5%,
-                        #E8F4F1 50%,
-                        #F8FAFC 100%);
-                min-height: 100vh;
+                padding: 70px 16px 40px;
+            }
+
+            .profile-header {
+                gap: 18px;
+                margin-bottom: 28px;
+            }
+
+            .profile-img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .profile-header h2 {
+                font-size: 18px !important;
+            }
+
+            .profile-header .d-flex {
+                flex-wrap: wrap;
+            }
+
+            .card-custom {
+                padding: 20px 16px;
+                border-radius: 14px;
             }
 
             .target-diet-options {
                 grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .target-card-label {
+                padding: 16px;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+
+            .target-icon {
+                font-size: 24px;
+                margin-bottom: 0;
+                flex-shrink: 0;
             }
 
             .add-allergy-box {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 14px;
+            }
+
+            .metric-value {
+                font-size: 30px;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+                gap: 10px;
+            }
+
+            .form-actions .btn-main,
+            .form-actions .btn-outline {
+                width: 100%;
+                text-align: center;
+            }
+
+            .metrics-container .btn-main {
+                padding: 14px;
+            }
+        }
+
+        /* Small mobile: ≤ 480px */
+        @media (max-width: 480px) {
+            .pref-tag {
+                font-size: 12px;
+                padding: 7px 13px;
+            }
+
+            .badge-custom {
+                font-size: 11px;
+                padding: 5px 11px;
+            }
+
+            .profile-header {
+                flex-direction: row;
+                align-items: flex-start;
             }
         }
     </style>
 </head>
 
 <body>
+
+    {{-- Mobile hamburger toggle --}}
+    <div class="sidebar-toggle" id="sidebarToggle">
+        <i class="bi bi-list fs-5 text-primary"></i>
+    </div>
+
+    {{-- Overlay for mobile sidebar --}}
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     @include('layouts.sidebar')
 
@@ -542,8 +739,10 @@
                                     {{ ($profile->diet_goal ?? '') == 'loss' ? 'checked' : '' }} required>
                                 <div class="target-card-label">
                                     <div class="target-icon"><i class="bi bi-graph-down"></i></div>
-                                    <div class="target-title">Weight Loss</div>
-                                    <div class="target-desc">Fokus pada pembakaran lemak dan defisit kalori.</div>
+                                    <div>
+                                        <div class="target-title">Weight Loss</div>
+                                        <div class="target-desc">Fokus pada pembakaran lemak dan defisit kalori.</div>
+                                    </div>
                                 </div>
                             </label>
                             <label>
@@ -551,8 +750,10 @@
                                     {{ ($profile->diet_goal ?? '') == 'maintain' ? 'checked' : '' }} required>
                                 <div class="target-card-label">
                                     <div class="target-icon"><i class="bi bi-dash-lg"></i></div>
-                                    <div class="target-title">Maintain Weight</div>
-                                    <div class="target-desc">Menjaga komposisi tubuh dengan kalori seimbang.</div>
+                                    <div>
+                                        <div class="target-title">Maintain Weight</div>
+                                        <div class="target-desc">Menjaga komposisi tubuh dengan kalori seimbang.</div>
+                                    </div>
                                 </div>
                             </label>
                             <label>
@@ -560,8 +761,10 @@
                                     {{ ($profile->diet_goal ?? '') == 'gain' ? 'checked' : '' }} required>
                                 <div class="target-card-label">
                                     <div class="target-icon"><i class="bi bi-graph-up-arrow"></i></div>
-                                    <div class="target-title">Weight Gain</div>
-                                    <div class="target-desc">Membangun massa otot dengan surplus nutrisi.</div>
+                                    <div>
+                                        <div class="target-title">Weight Gain</div>
+                                        <div class="target-desc">Membangun massa otot dengan surplus nutrisi.</div>
+                                    </div>
                                 </div>
                             </label>
                         </div>
@@ -690,6 +893,23 @@
                 output.src = reader.result;
             };
             reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Mobile sidebar toggle
+        const toggle = document.getElementById('sidebarToggle');
+        const overlay = document.getElementById('sidebarOverlay');
+        const sidebar = document.querySelector('.sidebar');
+
+        if (toggle && sidebar) {
+            toggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+                overlay.classList.toggle('open');
+            });
+
+            overlay.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+            });
         }
     </script>
 </body>
